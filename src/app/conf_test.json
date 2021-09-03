@@ -1,0 +1,6 @@
+{
+    "HTTPS": "off",
+    "Cert": "/etc/ssl/certs/cert.pem",
+    "Key": "/etc/ssl/certs/key.pem",
+    "ServerListenPort": ":8080"
+}
