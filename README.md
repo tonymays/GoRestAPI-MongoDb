@@ -1,2 +1,2 @@
 # GoRestAPI
-Rest API boilerplate
+Rest API Boilerplate
