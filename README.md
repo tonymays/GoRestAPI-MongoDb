@@ -1,2 +1,2 @@
 # GoRestAPI
-Rest API Boilerplate
+Go REST API Boilerplate
