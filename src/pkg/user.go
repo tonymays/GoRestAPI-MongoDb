@@ -8,11 +8,9 @@ import (
 	"strings"
 )
 
-// ---- UserService Interface
 type UserService interface {
 }
 
-// ---- User ---
 type User struct {
 	Id				string		`json:"id,omitempty"`
 	Username		string		`json:"username,omitempty"`
@@ -31,7 +29,6 @@ type User struct {
 	Modified		string		`json:"modified,omitempty"`
 }
 
-// ---- UserToken ----
 type UserToken struct {
 	Id				string		`json:"id,omitempty"`
 	Username		string		`json:"username,omitempty"`
@@ -40,7 +37,6 @@ type UserToken struct {
 	ServiceCatalog	[]string	`json:"service_catalog,omitempty"`
 }
 
-// ---- User.Validate ----
 func (rcvr *User) Validate(opCreate bool) error {
 	if opCreate {
 		if len(rcvr.Id) == 0 {return errors.New("missing id")}
@@ -55,14 +51,13 @@ func (rcvr *User) Validate(opCreate bool) error {
 		if len(rcvr.Country) == 0 {return errors.New("missing country")}
 		if len(rcvr.Email) == 0 {return errors.New("missing email")}
 		if len(rcvr.Phone) == 0 {return errors.New("missing phone")}
-		if len(rcvr.Status) == 0 {return errors.New("missing status")}
+		if len(rcvr.Active) == 0 {return errors.New("missing active")}
 	} else {
 		if len(rcvr.Password) > 0 {return errors.New("setting password not allowed")}
 	}
 	return nil
 }
 
-// ---- User.HashPassword ----
 func (rcvr *User) HashPassword(p string) (string, error) {
 	byteP := []byte(p)
 	hp, err := bcrypt.GenerateFromPassword(byteP, bcrypt.DefaultCost)
@@ -72,7 +67,6 @@ func (rcvr *User) HashPassword(p string) (string, error) {
 	return string(hp), nil
 }
 
-// ---- User.ValidatePassword ----
 func (rcvr *User) ValidatePassword(p string, hp string) bool {
 	byteP := []byte(p)
 	byteHp := []byte(hp)
@@ -83,8 +77,7 @@ func (rcvr *User) ValidatePassword(p string, hp string) bool {
 	return true
 }
 
-// ---- User.MakeBsonDQueryFilter ----
-func (rcvr *User) MakeBsonDQueryFilter() bsonD {
+func (rcvr *User) MakeBsonDQueryFilter() bson.D {
 	filter := bson.D{}
 	jsonString, _ := json.Marshal(rcvr)
 	processString := string (jsonString)
@@ -98,7 +91,6 @@ func (rcvr *User) MakeBsonDQueryFilter() bsonD {
 	return filter
 }
 
-// ---- User.MakeBsonDUpdateQueryFilter ----
 func (rcvr *User) MakeBsonDUpdateQueryFilter() bson.D {
 	inner := rcvr.MakeBsonDQueryFilter()
 	outer := bson.D{{"$set", inner } }

@@ -3,16 +3,15 @@ package server
 import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"rest_api/pkg"
-	"rest_api/pkg/configuration"
+	"pkg"
+	"pkg/data"
 )
 
-// ==== CreateToken ====
-func CreateToken(userToken root.UserToken, config configuration.Configuration, exp int64, remoteAddr string) string {
+func CreateToken(userToken root.UserToken, config data.Configuration, exp int64, remoteAddr string) string {
 	var MySigningKey = []byte(config.Secret)
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
-	claims[ "id" ] = userToken.UserUuid
+	claims[ "id" ] = userToken.Id
 	claims[ "username" ] = userToken.Username
 	claims[ "email" ] = userToken.Email
 	claims["remote_addr"] = remoteAddr
@@ -21,8 +20,7 @@ func CreateToken(userToken root.UserToken, config configuration.Configuration, e
 	return tokenString
 }
 
-// ==== DecodeJWT ====
-func DecodeJWT(curToken string, config configuration.Configuration) root.UserToken {
+func DecodeJWT(curToken string, config data.Configuration) root.UserToken {
 	var userToken root.UserToken
 	var MySigningKey = []byte(config.Secret)
 	token, err := jwt.Parse(curToken, func(token *jwt.Token) (interface{}, error) {

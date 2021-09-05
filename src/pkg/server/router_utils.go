@@ -1,18 +1,16 @@
-ackage server
+package server
 
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 )
 
-
-// ---- jsonErr ----
 type jsonErr struct {
 	Code int    `json:"code"`
 	Text string `json:"text"`
 }
 
-// ---- HandleOptionsRequest ----
 func HandleOptionsRequest(w http.ResponseWriter, r *http.Request) {
 	// establish what the options endpoints can handle
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -23,7 +21,6 @@ func HandleOptionsRequest(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// ---- SerResponseHeaders ----
 func SetResponseHeaders( w http.ResponseWriter, authToken string, apiKey string ) http.ResponseWriter {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type, Auth-Token, API-Key")
@@ -39,15 +36,13 @@ func SetResponseHeaders( w http.ResponseWriter, authToken string, apiKey string 
 	return w
 }
 
-// ---- GetIpAddress ----
 func GetIpAddress(r *http.Request) string {
 	parts := strings.Split(r.RemoteAddr, ":")
 	return parts[0]
 }
 
-// ---- throw ----
 func throw(w http.ResponseWriter, callErr error) {
-	w = SetResponseHeaders(w)
+	w = SetResponseHeaders(w, "", "")
 	w.WriteHeader(http.StatusForbidden)
 	err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusForbidden, Text: callErr.Error()})
 	if err != nil {
