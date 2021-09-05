@@ -17,6 +17,7 @@ type Server struct {
 func NewServer(data data.Data) *Server {
 	router := mux.NewRouter().StrictSlash(true)
 	router = NewAuthRouter(router, data)
+	router = NewUserRouter(router, data)
 	s := Server{
 		Router: router,
 		Data: data,
