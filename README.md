@@ -1,5 +1,5 @@
 # GoRestAPI
-Go REST API Boilerplate with the MongoDb Database
+Go REST API Boilerplate for MongoDb
 
 Boilerplate currently under construction as a multi-database REST API
 
