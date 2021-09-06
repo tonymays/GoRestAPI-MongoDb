@@ -1,0 +1,18 @@
+{
+	"MongoUri": "",
+	"DbName": "",
+	"Secret": "",
+    "HTTPS": "",
+    "Cert": "",
+    "Key": "",
+    "ServerListenPort": "",
+	"RootUserName": "",
+	"RootPassword": "",
+	"Address": "",
+	"City": "",
+	"State": "",
+	"Zip": "",
+	"Country": "",
+	"Email": "",
+	"Phone": ""
+}
