@@ -6,6 +6,7 @@
 *.dylib
 deployment-config.json
 conf.json
+conf_test.json
 
 # Test binary, built with `go test -c`
 *.test
