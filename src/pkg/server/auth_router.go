@@ -4,25 +4,28 @@ import (
 //	"encoding/json"
 //	"errors"
 	"github.com/gorilla/mux"
-//	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
 //	"io"
 //	"io/ioutil"
 	"net/http"
-	"pkg/data"
+	"pkg"
+	"pkg/configuration"
 )
 
 type authRouter struct {
-	data data.Data
+	config		configuration.Configuration
+	dbClient	*mongo.Client
+	authService	root.AuthService
 }
 
-func NewAuthRouter(router *mux.Router, data data.Data) *mux.Router {
-	authRouter :=  authRouter{data}
+func NewAuthRouter(router *mux.Router, config configuration.Configuration, dbClient *mongo.Client, authService root.AuthService) *mux.Router {
+	authRouter :=  authRouter{config, dbClient, authService}
 	router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
 	router.HandleFunc("/auth", authRouter.startSession).Methods("POST")
-	router.HandleFunc("/auth", VerifyToken(authRouter.killSession, data)).Methods("DELETE")
-	router.HandleFunc("/auth", VerifyToken(authRouter.refreshSession, data)).Methods("GET")
-	router.HandleFunc("/auth", VerifyToken(authRouter.checkSession, data)).Methods("HEAD")
-	router.HandleFunc("/auth", VerifyToken(authRouter.changePassword, data)).Methods("PUT")
+	router.HandleFunc("/auth", VerifyToken(authRouter.killSession, config, dbClient)).Methods("DELETE")
+	router.HandleFunc("/auth", VerifyToken(authRouter.refreshSession, config, dbClient)).Methods("GET")
+	router.HandleFunc("/auth", VerifyToken(authRouter.checkSession, config, dbClient)).Methods("HEAD")
+	router.HandleFunc("/auth", VerifyToken(authRouter.changePassword, config, dbClient)).Methods("PUT")
 	return router
 }
 

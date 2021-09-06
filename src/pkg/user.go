@@ -9,10 +9,12 @@ import (
 )
 
 type UserService interface {
+	CreateUser(u User) (User, error)
 }
 
 type User struct {
-	Id				string		`json:"id,omitempty"`
+	Id				string		`json:"_id,omitempty"`
+	Userid			string		`json:"user_id,omitempty"`
 	Username		string		`json:"username,omitempty"`
 	Password		string		`json:"password,omitempty"`
 	Firstname		string		`json:"first_name,omitempty"`
@@ -30,7 +32,7 @@ type User struct {
 }
 
 type UserToken struct {
-	Id				string		`json:"id,omitempty"`
+	Userid			string		`json:"user_idid,omitempty"`
 	Username		string		`json:"username,omitempty"`
 	Email			string		`json:"email,omitempty"`
 	RemoteAddr		string		`json:"remote_addr,omitempty"`
@@ -39,7 +41,7 @@ type UserToken struct {
 
 func (rcvr *User) Validate(opCreate bool) error {
 	if opCreate {
-		if len(rcvr.Id) == 0 {return errors.New("missing id")}
+		if len(rcvr.Userid) == 0 {return errors.New("missing user id")}
 		if len(rcvr.Username) == 0 {return errors.New("missing username")}
 		if len(rcvr.Password) == 0 {return errors.New("missing password")}
 		if len(rcvr.Firstname)== 0 {return errors.New("missing first name")}

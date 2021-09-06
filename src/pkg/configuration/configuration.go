@@ -1,20 +1,13 @@
-package data
+package configuration
 
 import (
 	"encoding/json"
-	"go.mongodb.org/mongo-driver/mongo"
 	"os"
 )
 
-type Data struct {
-	Config			Configuration
-	MongoClient		*mongo.Client
-}
-
 type Configuration struct {
-	DbVendor			string
-	DbName				string
 	MongoUri			string
+	DbName				string
 	Secret				string
     HTTPS				string
     Cert				string
@@ -31,31 +24,18 @@ type Configuration struct {
 	Phone				string
 }
 
-func (rcvr *Data) Init(e string) error {
-	var config Configuration
-	config.Init(e)
-	rcvr.Config = config
-	if config.DbVendor == "MongoDb" {
-		mongoClient, err := ConnectMongoDb(rcvr.Config.MongoUri)
-		if err != nil {
-			return err
-		}
-		rcvr.MongoClient = mongoClient
-	}
-	return nil
-}
-
-func (rcvr *Configuration) Init(e string) error {
+func Init(e string) (Configuration, error) {
 	confFile := "conf.json"
 	if e == "test" {
 		confFile = "conf_test.json"
 	}
+
 	file, _ := os.Open(confFile)
 	decoder	:= json.NewDecoder(file)
 	settings := Configuration{}
 	err	:= decoder.Decode(&settings)
 	if err != nil {
-		return err
+		return Configuration{}, err
 	}
-	return nil
+	return settings, nil
 }

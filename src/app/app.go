@@ -1,8 +1,10 @@
 package main
 
 import (
-	"pkg/data"
+	"pkg"
+	"pkg/configuration"
 	"pkg/server"
+	"pkg/services"
 )
 
 type App struct {
@@ -10,9 +12,22 @@ type App struct {
 }
 
 func (rcvr *App) Init(e string) error {
-	var data data.Data
-	data.Init(e)
-	rcvr.Server = server.NewServer(data)
+	config, err := configuration.Init(e)
+	if err != nil {
+		return err
+	}
+
+	dbClient, err := root.Connect(config.MongoUri)
+	if err != nil {
+		return err
+	}
+
+	dbService := services.NewDbService(config, dbClient)
+	authService := services.NewAuthService(config, dbClient, dbService)
+	userService := services.NewUserService(config, dbClient, dbService)
+
+	rcvr.Server = server.NewServer(config, dbClient, dbService, authService, userService)
+
 	rcvr.Server.Init()
 	return nil
 }

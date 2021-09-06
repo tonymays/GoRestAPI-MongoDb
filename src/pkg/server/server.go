@@ -4,34 +4,42 @@ import (
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 	"os"
-	"pkg/data"
+	"pkg"
+	"pkg/configuration"
 )
 
 type Server struct {
-	Router	*mux.Router
-	Data	data.Data
+	Router			*mux.Router
+	Config			configuration.Configuration
+	DbClient		*mongo.Client
+	AuthService		root.AuthService
+	UserService		root.UserService
 }
 
-func NewServer(data data.Data) *Server {
+func NewServer(config configuration.Configuration, dbClient *mongo.Client, dbService root.DbService, auth root.AuthService, user root.UserService) *Server {
 	router := mux.NewRouter().StrictSlash(true)
-	router = NewAuthRouter(router, data)
-	router = NewUserRouter(router, data)
+	router = NewAuthRouter(router, config, dbClient, auth)
+	router = NewUserRouter(router, config, dbClient, user)
 	s := Server{
 		Router: router,
-		Data: data,
+		Config: config,
+		DbClient: dbClient,
+		AuthService: auth,
+		UserService: user,
 	}
 	return &s
 }
 
 func (rcvr *Server) Start() {
-	if rcvr.Data.Config.HTTPS == "on" {
+	if rcvr.Config.HTTPS == "on" {
 		fmt.Println("Listening on port 8443")
-		http.ListenAndServeTLS(":8443", rcvr.Data.Config.Cert, rcvr.Data.Config.Key, handlers.LoggingHandler(os.Stdout, rcvr.Router))
+		http.ListenAndServeTLS(":8443", rcvr.Config.Cert, rcvr.Config.Key, handlers.LoggingHandler(os.Stdout, rcvr.Router))
 	} else {
-		fmt.Println("Listening on port", rcvr.Data.Config.ServerListenPort)
-		http.ListenAndServe(rcvr.Data.Config.ServerListenPort, handlers.LoggingHandler(os.Stdout, rcvr.Router))
+		fmt.Println("Listening on port", rcvr.Config.ServerListenPort)
+		http.ListenAndServe(rcvr.Config.ServerListenPort, handlers.LoggingHandler(os.Stdout, rcvr.Router))
 	}
 }
 

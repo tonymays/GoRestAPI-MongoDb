@@ -1,4 +1,4 @@
-package mongodb
+package data
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -6,8 +6,8 @@ import (
 )
 
 type userModel struct {
-	Mid			primitive.ObjectID	`bson:"_id,omitempty"`
-	Id			string 				`bson:"id,omitempty"`
+	Id			primitive.ObjectID	`bson:"_id,omitempty"`
+	Userid		string	 			`bson:"user_id,omitempty"`
 	Username	string 				`bson:"username,omitempty"`
 	Password	string 				`bson:"password,omitempty"`
 	Firstname	string 				`bson:"first_name,omitempty"`
@@ -26,7 +26,7 @@ type userModel struct {
 
 func newUserModel(rcvr root.User) *userModel {
 	return &userModel{
-		Id:			rcvr.Id,
+		Userid:		rcvr.Userid,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
 		Firstname:	rcvr.Firstname,
@@ -46,8 +46,8 @@ func newUserModel(rcvr root.User) *userModel {
 
 func (rcvr *userModel) toRootUser() root.User {
 	return root.User{
-		Mid: 		rcvr.Mid.Hex( ),
-		Id:			rcvr.Id,
+		Id: 		rcvr.Id.Hex(),
+		Userid:		rcvr.Userid,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
 		Firstname:	rcvr.Firstname,

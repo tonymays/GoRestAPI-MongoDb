@@ -1,6 +1,18 @@
 {
+	"MongoUri": "mongodb+srv://test_user2:HakrIS1gTBdvkwH0@development-2do3d.mongodb.net/cKernel?retryWrites=true&w=majority",
+	"DbName": "rest_api_test",
+	"Secret": "redsox2004",
     "HTTPS": "off",
     "Cert": "/etc/ssl/certs/cert.pem",
     "Key": "/etc/ssl/certs/key.pem",
-    "ServerListenPort": ":8080"
+    "ServerListenPort": ":8080",
+	"RootUserName": "root",
+	"RootPassword": "abc123xyz890",
+	"Address": "3904 Long Meadow Court",
+	"City": "Plano",
+	"State": "Tx",
+	"Zip": "75074",
+	"Country": "United States",
+	"Email": "anthony.d.mays@gmail.com",
+	"Phone": "469-792-6095",
 }

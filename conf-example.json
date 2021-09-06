@@ -1,7 +1,6 @@
 {
-	"DbVendor": "",
-	"DbName": "",
 	"MongoUri": "",
+	"DbName": "",
 	"Secret": "",
     "HTTPS": "",
     "Cert": "",

@@ -1,4 +1,4 @@
-package data
+package root
 
 import (
 	"context"
@@ -7,7 +7,10 @@ import (
 	"time"
 )
 
-func ConnectMongoDb(mongoUri string) (*mongo.Client, error) {
+type DbService interface {
+}
+
+func Connect(mongoUri string) (*mongo.Client, error) {
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoUri))
 	if err != nil {
 		return nil, err
@@ -18,5 +21,5 @@ func ConnectMongoDb(mongoUri string) (*mongo.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return client, err
+	return client, nil
 }
