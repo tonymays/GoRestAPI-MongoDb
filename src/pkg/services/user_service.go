@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"pkg"
 	"pkg/configuration"
-	"pkg/data"
+	"pkg/data_models"
 	"time"
 )
 
