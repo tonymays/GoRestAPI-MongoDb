@@ -39,7 +39,6 @@ func NewUserRouter(router *mux.Router, config configuration.Configuration, dbCli
 	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.assignUserRole, config, dbClient)).Methods("POST")
 	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.activateUserRole, config, dbClient)).Methods("PATCH")
 	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.deactivateUserRole, config, dbClient)).Methods("PUT")
-	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.unassignUserRole, config, dbClient)).Methods("DELETE")
 
 	return router
 }
@@ -79,7 +78,7 @@ func (rcvr *userRouter) findActiveUsers(w http.ResponseWriter, r *http.Request) 
 func (rcvr *userRouter) findUser(w http.ResponseWriter, r *http.Request) {
 	var u root.User
 	vars := mux.Vars(r)
-	u.Userid = vars["id"]
+	u.UserId = vars["id"]
 	users, err := rcvr.userService.FindUser(u)
 	if err == nil {
 		rcvr.respond(w,users[0])
@@ -113,7 +112,7 @@ func (rcvr *userRouter) updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	var filter root.User
 	vars := mux.Vars(r)
-	filter.Userid = vars["id"]
+	filter.UserId = vars["id"]
 	user, err := rcvr.userService.UpdateUser(filter,update)
 	if err == nil {
 		rcvr.respond(w,user)
@@ -124,12 +123,32 @@ func (rcvr *userRouter) updateUser(w http.ResponseWriter, r *http.Request) {
 
 // ---- userRouter.activateUser ----
 func (rcvr *userRouter) activateUser(w http.ResponseWriter, r *http.Request) {
-
+	var f root.User
+	vars := mux.Vars(r)
+	f.UserId = vars["id"]
+	var u root.User
+	u.Active = "Yes"
+	user, err := rcvr.userService.UpdateUser(f,u)
+	if err == nil {
+		rcvr.respond(w,user)
+	} else {
+		throw(w,err)
+	}
 }
 
 // ---- userRouter.deactivateUser ----
 func (rcvr *userRouter) deactivateUser(w http.ResponseWriter, r *http.Request) {
-
+	var f root.User
+	vars := mux.Vars(r)
+	f.UserId = vars["id"]
+	var u root.User
+	u.Active = "No"
+	user, err := rcvr.userService.UpdateUser(f,u)
+	if err == nil {
+		rcvr.respond(w,user)
+	} else {
+		throw(w,err)
+	}
 }
 
 // ---- userRouter.findUserRoles ----
@@ -149,11 +168,6 @@ func (rcvr *userRouter) activateUserRole(w http.ResponseWriter, r *http.Request)
 
 // ---- userRouter.deactivateUserRole ----
 func (rcvr *userRouter) deactivateUserRole(w http.ResponseWriter, r *http.Request) {
-
-}
-
-// ---- userRouter.unassignUserRole ----
-func (rcvr *userRouter) unassignUserRole(w http.ResponseWriter, r *http.Request) {
 
 }
 

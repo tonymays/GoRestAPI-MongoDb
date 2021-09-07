@@ -12,7 +12,7 @@ func CreateToken(userToken root.UserToken, config configuration.Configuration, e
 	var MySigningKey = []byte(config.Secret)
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
-	claims[ "user_id" ] = userToken.Userid
+	claims[ "user_id" ] = userToken.UserId
 	claims[ "username" ] = userToken.Username
 	claims[ "email" ] = userToken.Email
 	claims["remote_addr"] = remoteAddr
@@ -35,7 +35,7 @@ func DecodeJWT(curToken string, config configuration.Configuration) root.UserTok
 		return userToken
 	}
 	tokenClaims := token.Claims.(jwt.MapClaims)
-	userToken.Userid = tokenClaims["user_id"].(string)
+	userToken.UserId = tokenClaims["user_id"].(string)
 	userToken.Username = tokenClaims["username"].(string)
 	userToken.Email = tokenClaims["email"].(string)
 	userToken.RemoteAddr = tokenClaims["remote_addr"].(string)

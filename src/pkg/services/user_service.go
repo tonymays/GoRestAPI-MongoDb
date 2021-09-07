@@ -41,12 +41,12 @@ func (rcvr *UserService) CreateUser(u root.User) (root.User, error) {
 	}
 
 	// establish the user id or fail if passed
-	if len(u.Userid) == 0 {
+	if len(u.UserId) == 0 {
 		id, err := root.GenId()
 		if err != nil {
 			return root.User{}, err
 		}
-		u.Userid = id
+		u.UserId = id
 	} else {
 		return root.User{}, errors.New("setting user_id manually is not authorized")
 	}
@@ -83,43 +83,57 @@ func (rcvr *UserService) CreateUser(u root.User) (root.User, error) {
 
 // ---- UserService.FindUser ----
 func (rcvr *UserService) FindUser(u root.User) ([]root.User, error) {
+	// establish a nil slice
 	var users []root.User
+
+	// make the filter and query the users collection
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
-	filter := u.MakeBsonDQueryFilter()
+	filter := root.MakeBsonDQueryFilter(u)
 	count := 0
 	cursor, err := rcvr.usersCollection.Find(ctx, filter)
 	if err != nil {
 		return users, err
 	}
 	defer cursor.Close(ctx)
+
+	// walk the cursor returned
 	for cursor.Next(ctx) {
 		var user = data.NewUserModel(root.User{})
 		cursor.Decode(&user)
 		users = append(users, user.ToRootUser())
 		count++
 	}
+
+	// no users found then toss back an error
 	if count == 0 {
 		return users, errors.New("no users found")
 	}
+
+	// otherwise, return the users
 	return users, nil
 }
 
 // ---- UserService.UpdateUser
 func (rcvr *UserService) UpdateUser(f root.User, u root.User) (root.User, error) {
+	// find the user
 	_, err := rcvr.FindUser(f)
+
+	// if the user exists ...
 	if err == nil {
+		// ... then update the user
 		ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 		defer cancel()
 		u.Modified = root.GenTimestamp()
-		filter := f.MakeBsonDQueryFilter()
-		update := u.MakeBsonDUpdateQueryFilter()
+		filter := root.MakeBsonDQueryFilter(f)
+		update := root.MakeBsonDUpdateQueryFilter(u)
 		_, err := rcvr.usersCollection.UpdateMany(ctx, filter, update)
 		if err != nil {
 			return root.User{}, err
 		}
-		return root.User{}, nil
+		return u, nil
+	// otherwise, toss back an error
 	} else {
-		return u, errors.New("user not found")
+		return root.User{}, errors.New("user not found")
 	}
 }

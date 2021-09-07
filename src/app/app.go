@@ -38,9 +38,16 @@ func (rcvr *App) Init(e string) error {
 	// Step 3: Setup App Service
 	authService := services.NewAuthService(config, dbClient)
 	userService := services.NewUserService(config, dbClient)
+	roleService := services.NewRoleService(config, dbClient)
 
 	// Step 4: Setup the App Server
-	rcvr.Server = server.NewServer(config, dbClient, authService, userService)
+	rcvr.Server = server.NewServer(
+		config,
+		dbClient,
+		authService,
+		userService,
+		roleService,
+	)
 
 	// Step 5: Perform any Server Startup functions
 	rcvr.Server.Init()

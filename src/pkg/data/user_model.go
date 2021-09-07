@@ -8,7 +8,7 @@ import (
 // ---- UserModel ----
 type UserModel struct {
 	Id			primitive.ObjectID	`bson:"_id,omitempty"`
-	Userid		string	 			`bson:"user_id,omitempty"`
+	UserId		string	 			`bson:"user_id,omitempty"`
 	Username	string 				`bson:"username,omitempty"`
 	Password	string 				`bson:"password,omitempty"`
 	Firstname	string 				`bson:"first_name,omitempty"`
@@ -28,7 +28,7 @@ type UserModel struct {
 // ---- NewUserModel ----
 func NewUserModel(rcvr root.User) *UserModel {
 	return &UserModel{
-		Userid:		rcvr.Userid,
+		UserId:		rcvr.UserId,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
 		Firstname:	rcvr.Firstname,
@@ -49,7 +49,7 @@ func NewUserModel(rcvr root.User) *UserModel {
 // ---- UserModel.ToRootUser ----
 func (rcvr *UserModel) ToRootUser() root.User {
 	return root.User{
-		Userid:		rcvr.Userid,
+		UserId:		rcvr.UserId,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
 		Firstname:	rcvr.Firstname,

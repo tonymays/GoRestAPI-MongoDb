@@ -18,14 +18,16 @@ type Server struct {
 	DbClient		*mongo.Client
 	AuthService		root.AuthService
 	UserService		root.UserService
+	RoleService		root.RoleService
 }
 
 // --- NewServer ----
-func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth root.AuthService, user root.UserService) *Server {
+func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth root.AuthService, user root.UserService, role root.RoleService) *Server {
 	// establish routers
 	router := mux.NewRouter().StrictSlash(true)
 	router = NewAuthRouter(router, config, dbClient, auth)
 	router = NewUserRouter(router, config, dbClient, user)
+	router = NewRoleRouter(router, config, dbClient, role)
 
 	// setup Server struct
 	s := Server{
@@ -34,6 +36,7 @@ func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth 
 		DbClient: dbClient,
 		AuthService: auth,
 		UserService: user,
+		RoleService: role,
 	}
 
 	// return the Server struct
@@ -56,7 +59,7 @@ func (rcvr *Server) Start() {
 // ---- Server.Init ----
 func (rcvr *Server) Init() {
 	// Check user count if zero add root user
-	
+
 	// Step 1: Add Default Permission Sets
 
 	// Step 2: Add Admin Role
