@@ -71,7 +71,7 @@ func (rcvr *UserService) CreateUser(u root.User) (root.User, error) {
 	// add the record or return err on insert error
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
-	m := data.NewUserModel(u)
+	m := data_models.NewUserModel(u)
 	_, err = rcvr.usersCollection.InsertOne(ctx, m)
 	if err != nil {
 		return root.User{}, err
@@ -99,7 +99,7 @@ func (rcvr *UserService) FindUser(u root.User) ([]root.User, error) {
 
 	// walk the cursor returned
 	for cursor.Next(ctx) {
-		var user = data.NewUserModel(root.User{})
+		var user = data_models.NewUserModel(root.User{})
 		cursor.Decode(&user)
 		users = append(users, user.ToRootUser())
 		count++

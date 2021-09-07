@@ -65,7 +65,7 @@ func (rcvr *RoleService) CreateRole(r root.Role) (root.Role, error) {
 	// add the record or return err on insert error
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
-	m := data.NewRoleModel(r)
+	m := data_models.NewRoleModel(r)
 	_, err = rcvr.rolesCollection.InsertOne(ctx, m)
 	if err != nil {
 		return root.Role{}, err
@@ -93,7 +93,7 @@ func (rcvr *RoleService) FindRole(r root.Role) ([]root.Role, error) {
 
 	// walk the cursor returned
 	for cursor.Next(ctx) {
-		var role = data.NewRoleModel(root.Role{})
+		var role = data_models.NewRoleModel(root.Role{})
 		cursor.Decode(&role)
 		roles = append(roles, role.ToRootRole())
 		count++
