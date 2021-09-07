@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// ---- GenId ----
 func GenId() (string, error) {
 	id, err := uuid.NewV4()
 	if err != nil {
@@ -15,14 +16,17 @@ func GenId() (string, error) {
 	return id.String(), nil
 }
 
+// ---- GenShortId ----
 func GenShortId() string {
 	return shortuuid.New()
 }
 
-func GenTimeStamp() string {
+// ---- GenTimestamp ----
+func GenTimestamp() string {
 	return time.Now().UTC().String()
 }
 
+// ---- JsonStringToArray ----
 func JsonStringToArray(jsonString string) []string {
 	replacer := strings.NewReplacer("\",\"", "|", "{", "", "}", "", "\"", "")
 	newString := replacer.Replace(jsonString)

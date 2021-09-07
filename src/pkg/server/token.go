@@ -7,6 +7,7 @@ import (
 	"pkg/configuration"
 )
 
+// ---- CreateToken ----
 func CreateToken(userToken root.UserToken, config configuration.Configuration, exp int64, remoteAddr string) string {
 	var MySigningKey = []byte(config.Secret)
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -20,6 +21,7 @@ func CreateToken(userToken root.UserToken, config configuration.Configuration, e
 	return tokenString
 }
 
+// ---- DecodeJWT ----
 func DecodeJWT(curToken string, config configuration.Configuration) root.UserToken {
 	var userToken root.UserToken
 	var MySigningKey = []byte(config.Secret)

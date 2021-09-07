@@ -5,7 +5,8 @@ import (
 	"pkg"
 )
 
-type userModel struct {
+// ---- UserModel ----
+type UserModel struct {
 	Id			primitive.ObjectID	`bson:"_id,omitempty"`
 	Userid		string	 			`bson:"user_id,omitempty"`
 	Username	string 				`bson:"username,omitempty"`
@@ -24,8 +25,9 @@ type userModel struct {
 	Modified	string 				`bson:"modified,omitempty"`
 }
 
-func newUserModel(rcvr root.User) *userModel {
-	return &userModel{
+// ---- NewUserModel ----
+func NewUserModel(rcvr root.User) *UserModel {
+	return &UserModel{
 		Userid:		rcvr.Userid,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
@@ -44,9 +46,9 @@ func newUserModel(rcvr root.User) *userModel {
 	}
 }
 
-func (rcvr *userModel) toRootUser() root.User {
+// ---- UserModel.ToRootUser ----
+func (rcvr *UserModel) ToRootUser() root.User {
 	return root.User{
-		Id: 		rcvr.Id.Hex(),
 		Userid:		rcvr.Userid,
 		Username:	rcvr.Username,
 		Password:	rcvr.Password,
