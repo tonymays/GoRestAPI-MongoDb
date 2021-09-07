@@ -4,9 +4,15 @@ import (
 	"errors"
 )
 
+type PermissionService interface {
+	CreatePermission(p Permission) (Permission, error)
+	FindPermission(p Permission) ([]Permission, error)
+	UpdatePermission(f Permission, u Permission) (Permission, error)
+}
+
 type Permission struct {
 	Id				string	`json:"_id,omitempty"`
-	PermissionId	string	`json:"pemission_id,omitempty"`
+	PermissionId	string	`json:"permission_id,omitempty"`
 	Tag				string	`json:"tag,omitempty"`
 	Active			string	`json:"active,omitempty"`
 	Created			string	`json:"created,omitempty"`
@@ -25,4 +31,5 @@ func (rcvr *Permission) Validate(opCreate bool) error {
 		if len(rcvr.PermissionId) > 0 {return errors.New("updating permission id not allowed")}
 		if len(rcvr.Created) > 0 {return errors.New("updating created timestamp not allowed")}
 	}
+	return nil
 }

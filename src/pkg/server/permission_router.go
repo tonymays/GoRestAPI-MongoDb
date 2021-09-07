@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/mongo"
 	"io"
@@ -20,7 +21,7 @@ type permissionRouter struct {
 
 // ---- NewUserRouter ----
 func NewPermissionRouter(router *mux.Router, config configuration.Configuration, dbClient *mongo.Client, permissionService root.PermissionService) *mux.Router {
-	permissionRouter :=  userRouter{config, dbClient, permissionService}
+	permissionRouter :=  permissionRouter{config, dbClient, permissionService}
 
 	router.HandleFunc("/permissions", HandleOptionsRequest).Methods("OPTIONS")
 	router.HandleFunc("/permissions", VerifyToken(permissionRouter.createPermission, config, dbClient)).Methods("POST")
@@ -46,7 +47,7 @@ func (rcvr *permissionRouter) createPermission(w http.ResponseWriter, r *http.Re
 	if err != nil {
 		throw(w, err)
 	}
-	p, err := rcvr.permissionService.CreatePermission(p)
+	p, err = rcvr.permissionService.CreatePermission(p)
 	if err == nil {
 		rcvr.respond(w, p)
 	} else {
@@ -55,10 +56,10 @@ func (rcvr *permissionRouter) createPermission(w http.ResponseWriter, r *http.Re
 }
 
 // ---- permissionRouter.findActivePermissions ----
-func (rcvr *permissionRouter) findActivePermission(w http.ResponseWriter, r *http.Request) {
+func (rcvr *permissionRouter) findActivePermissions(w http.ResponseWriter, r *http.Request) {
 	var p root.Permission
 	p.Active = "Yes"
-	permissions, err := rcvr.userService.FindPermission(p)
+	permissions, err := rcvr.permissionService.FindPermission(p)
 	if err == nil {
 		rcvr.respondSlice(w,permissions)
 	} else {
@@ -71,7 +72,7 @@ func (rcvr *permissionRouter) findPermission(w http.ResponseWriter, r *http.Requ
 	var p root.Permission
 	vars := mux.Vars(r)
 	p.PermissionId = vars["id"]
-	permissions, err := rcvr.permissionService.FindPermission(u)
+	permissions, err := rcvr.permissionService.FindPermission(p)
 	if err == nil {
 		rcvr.respond(w,permissions[0])
 	} else {
@@ -97,6 +98,8 @@ func (rcvr *permissionRouter) updatePermission(w http.ResponseWriter, r *http.Re
 		throw(w,err)
 		return
 	}
+
+	fmt.Println(update)
 	err = update.Validate(false)
 	if err != nil {
 		throw(w,err)

@@ -35,10 +35,11 @@ func (rcvr *App) Init(e string) error {
 		return err
 	}
 
-	// Step 3: Setup App Service
+	// Step 3: Setup App Services
 	authService := services.NewAuthService(config, dbClient)
 	userService := services.NewUserService(config, dbClient)
 	roleService := services.NewRoleService(config, dbClient)
+	permissionService := services.NewPermissionService(config, dbClient)
 
 	// Step 4: Setup the App Server
 	rcvr.Server = server.NewServer(
@@ -47,6 +48,7 @@ func (rcvr *App) Init(e string) error {
 		authService,
 		userService,
 		roleService,
+		permissionService,
 	)
 
 	// Step 5: Perform any Server Startup functions

@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"pkg"
 	"pkg/configuration"
@@ -11,7 +12,7 @@ import (
 )
 
 // ---- PermissionService ----
-type PwermissionService struct {
+type PermissionService struct {
 	config					configuration.Configuration
 	dbClient				*mongo.Client
 	permissionsCollection	*mongo.Collection
@@ -27,10 +28,10 @@ func NewPermissionService(config configuration.Configuration, dbClient *mongo.Cl
 func (rcvr *PermissionService) CreatePermission(p root.Permission) (root.Permission, error) {
 	// does the email address exists
 	var f root.Permission
-	f.Email = p.Tag
+	f.Tag = p.Tag
 	_, err := rcvr.FindPermission(f)
 	if err == nil {
-		return root.User{}, errors.New("tag taken")
+		return root.Permission{}, errors.New("tag taken")
 	}
 
 	// establish active flag or fail is passed
@@ -53,7 +54,7 @@ func (rcvr *PermissionService) CreatePermission(p root.Permission) (root.Permiss
 
 	// update the record timestamps
 	p.Created = root.GenTimestamp()
-	p.Modified = u.Created
+	p.Modified = p.Created
 
 	// validate the user and fail if we do not ave what we are looking for
 	err = p.Validate(true)
@@ -65,7 +66,7 @@ func (rcvr *PermissionService) CreatePermission(p root.Permission) (root.Permiss
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
 	m := data_models.NewPermissionModel(p)
-	_, err = rcvr.usersCollection.InsertOne(ctx, m)
+	_, err = rcvr.permissionsCollection.InsertOne(ctx, m)
 	if err != nil {
 		return root.Permission{}, err
 	}
@@ -83,6 +84,7 @@ func (rcvr *PermissionService) FindPermission(p root.Permission) ([]root.Permiss
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
 	filter := root.MakeBsonDQueryFilter(p)
+	fmt.Println(filter)
 	count := 0
 	cursor, err := rcvr.permissionsCollection.Find(ctx, filter)
 	if err != nil {
@@ -94,7 +96,7 @@ func (rcvr *PermissionService) FindPermission(p root.Permission) ([]root.Permiss
 	for cursor.Next(ctx) {
 		var permission = data_models.NewPermissionModel(root.Permission{})
 		cursor.Decode(&permission)
-		permissions = append(permissions, peermission.ToRootPermission())
+		permissions = append(permissions, permission.ToRootPermission())
 		count++
 	}
 
@@ -120,7 +122,7 @@ func (rcvr *PermissionService) UpdatePermission(f root.Permission, u root.Permis
 		u.Modified = root.GenTimestamp()
 		filter := root.MakeBsonDQueryFilter(f)
 		update := root.MakeBsonDUpdateQueryFilter(u)
-		_, err := rcvr.usersCollection.UpdateMany(ctx, filter, update)
+		_, err := rcvr.permissionsCollection.UpdateMany(ctx, filter, update)
 		if err != nil {
 			return root.Permission{}, err
 		}

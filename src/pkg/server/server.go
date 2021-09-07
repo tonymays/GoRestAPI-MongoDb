@@ -13,21 +13,23 @@ import (
 
 // ---- Server Struct ----
 type Server struct {
-	Router			*mux.Router
-	Config			configuration.Configuration
-	DbClient		*mongo.Client
-	AuthService		root.AuthService
-	UserService		root.UserService
-	RoleService		root.RoleService
+	Router				*mux.Router
+	Config				configuration.Configuration
+	DbClient			*mongo.Client
+	AuthService			root.AuthService
+	UserService			root.UserService
+	RoleService			root.RoleService
+	PermissionService	root.PermissionService
 }
 
 // --- NewServer ----
-func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth root.AuthService, user root.UserService, role root.RoleService) *Server {
+func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth root.AuthService, user root.UserService, role root.RoleService, permission root.PermissionService) *Server {
 	// establish routers
 	router := mux.NewRouter().StrictSlash(true)
 	router = NewAuthRouter(router, config, dbClient, auth)
 	router = NewUserRouter(router, config, dbClient, user)
 	router = NewRoleRouter(router, config, dbClient, role)
+	router = NewPermissionRouter(router, config, dbClient, permission)
 
 	// setup Server struct
 	s := Server{
@@ -37,6 +39,7 @@ func NewServer(config configuration.Configuration, dbClient *mongo.Client, auth 
 		AuthService: auth,
 		UserService: user,
 		RoleService: role,
+		PermissionService: permission,
 	}
 
 	// return the Server struct
