@@ -10,6 +10,9 @@ type UserService interface {
 	CreateUser(u User) (User, error)
 	FindUser(u User) ([]User, error)
 	UpdateUser(f User, u User) (User, error)
+	AssignUserRole(userRole UserRole) error
+	FindUserRole(userRole UserRole) ([]UserRoles, error)
+	ActivateUserRole(f UserRole, u UserRole) error
 }
 
 // ---- User ----

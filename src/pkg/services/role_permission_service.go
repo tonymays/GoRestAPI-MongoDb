@@ -108,6 +108,7 @@ func (rcvr *RolePermissionService) FindRolePermission(role root.Role) ([]root.Ro
 	}
 	defer cursor.Close(ctx)
 
+	// step 3: populate the payload structure with data found
 	var rolePermissions []root.RolePermissionPayload
 	for cursor.Next(ctx) {
 		var rolePermission = data_models.NewRolePermissionModel(root.RolePermission{})
@@ -128,6 +129,6 @@ func (rcvr *RolePermissionService) FindRolePermission(role root.Role) ([]root.Ro
 		rolePermissions = append(rolePermissions, payload)
 	}
 
-
+	// step 4: let them eat cake
 	return rolePermissions, nil
 }

@@ -35,10 +35,10 @@ func NewUserRouter(router *mux.Router, config configuration.Configuration, dbCli
 	router.HandleFunc("/users/{id}/roles", HandleOptionsRequest).Methods("OPTIONS")
 	router.HandleFunc("/users/{id}/roles", VerifyToken(userRouter.findUserRoles, config, dbClient)).Methods("GET")
 
-	router.HandleFunc("/users/{id}/roles/{roleUuid}", HandleOptionsRequest).Methods("OPTIONS")
-	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.assignUserRole, config, dbClient)).Methods("POST")
-	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.activateUserRole, config, dbClient)).Methods("PATCH")
-	router.HandleFunc("/users/{id}/roles/{roleUuid}", VerifyToken(userRouter.deactivateUserRole, config, dbClient)).Methods("PUT")
+	router.HandleFunc("/users/{userId}/roles/{roleId}", HandleOptionsRequest).Methods("OPTIONS")
+	router.HandleFunc("/users/{userId}/roles/{roleId}", VerifyToken(userRouter.assignUserRole, config, dbClient)).Methods("PUT")
+	router.HandleFunc("/users/{userId}/roles/{roleId}", VerifyToken(userRouter.activateUserRole, config, dbClient)).Methods("PATCH")
+	router.HandleFunc("/users/{userId}/roles/{roleId}", VerifyToken(userRouter.deactivateUserRole, config, dbClient)).Methods("DELETE")
 
 	return router
 }
@@ -165,20 +165,75 @@ func (rcvr *userRouter) deactivateUser(w http.ResponseWriter, r *http.Request) {
 
 // ---- userRouter.findUserRoles ----
 func (rcvr *userRouter) findUserRoles(w http.ResponseWriter, r *http.Request) {
+	var userRole root.UserRole
+	vars := mux.Vars(r)
+	userRole.UserId = vars["id"]
+	userRoles, err := rcvr.userService.FindUserRole(userRole)
 
+	//TODO: remove inactive roles
+	if err == nil {
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(userRoles)
+	} else {
+		throw(w,err)
+	}
 }
 
 // ---- userRouter.assignUserRole ----
 func (rcvr *userRouter) assignUserRole(w http.ResponseWriter, r *http.Request) {
-
+	var userRole root.UserRole
+	vars := mux.Vars(r)
+	userRole.UserRoleId, _ = root.GenId()
+	userRole.UserId = vars["userId"]
+	userRole.RoleId = vars["roleId"]
+	userRole.Active = "Yes"
+	userRole.Created = root.GenTimestamp()
+	userRole.Modified = userRole.Created
+	err := rcvr.userService.AssignUserRole(userRole)
+	if err == nil {
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(userRole)
+	} else {
+		throw(w,err)
+	}
 }
 
 // ---- userRouter.activateUserRole ----
 func (rcvr *userRouter) activateUserRole(w http.ResponseWriter, r *http.Request) {
-
+	var f root.UserRole
+	var u root.UserRole
+	vars := mux.Vars(r)
+	f.UserId = vars["userId"]
+	f.RoleId = vars["roleId"]
+	u.Active = "Yes"
+	u.Modified = root.GenTimestamp()
+	err := rcvr.userService.ActivateUserRole(f, u)
+	if err == nil {
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(u)
+	} else {
+		throw(w,err)
+	}
 }
 
 // ---- userRouter.deactivateUserRole ----
 func (rcvr *userRouter) deactivateUserRole(w http.ResponseWriter, r *http.Request) {
-
+	var f root.UserRole
+	var u root.UserRole
+	vars := mux.Vars(r)
+	f.UserId = vars["userId"]
+	f.RoleId = vars["roleId"]
+	u.Active = "No"
+	u.Modified = root.GenTimestamp()
+	err := rcvr.userService.ActivateUserRole(f, u)
+	if err == nil {
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(u)
+	} else {
+		throw(w,err)
+	}
 }

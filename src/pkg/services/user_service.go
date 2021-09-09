@@ -12,15 +12,18 @@ import (
 
 // ---- UserService ----
 type UserService struct {
-	config			configuration.Configuration
-	dbClient		*mongo.Client
-	usersCollection	*mongo.Collection
+	config				configuration.Configuration
+	dbClient			*mongo.Client
+	roleService			root.RoleService
+	usersCollection		*mongo.Collection
+	userRolesCollection	*mongo.Collection
 }
 
 // ---- NewUserService ----
-func NewUserService(config configuration.Configuration, dbClient *mongo.Client) *UserService {
+func NewUserService(config configuration.Configuration, dbClient *mongo.Client, roleService root.RoleService) *UserService {
 	uc := dbClient.Database(config.DbName).Collection("users")
-	return &UserService{config, dbClient, uc}
+	urc := dbClient.Database(config.DbName).Collection("user_roles")
+	return &UserService{config, dbClient, roleService, uc, urc}
 }
 
 // ---- UserService.CreateUser ----
@@ -114,7 +117,7 @@ func (rcvr *UserService) FindUser(u root.User) ([]root.User, error) {
 	return users, nil
 }
 
-// ---- UserService.UpdateUser
+// ---- UserService.UpdateUser ----
 func (rcvr *UserService) UpdateUser(f root.User, u root.User) (root.User, error) {
 	// find the user
 	_, err := rcvr.FindUser(f)
@@ -136,4 +139,117 @@ func (rcvr *UserService) UpdateUser(f root.User, u root.User) (root.User, error)
 	} else {
 		return root.User{}, errors.New("user not found")
 	}
+}
+
+func (rcvr *UserService) AssignUserRole(userRole root.UserRole) error {
+	// step 1: validate the assignment
+	err := userRole.Validate(true)
+	if err != nil {
+		return err
+	}
+
+	// step 2: find the user
+	var user root.User
+	user.UserId = userRole.UserId
+	_, err = rcvr.FindUser(user)
+	if err != nil {
+		return errors.New("user not found")
+	}
+
+	// step 3: find the role
+	var role root.Role
+	role.RoleId = userRole.RoleId
+	_, err = rcvr.roleService.FindRole(role)
+	if err != nil {
+		return errors.New("role not found")
+	}
+
+	// step 4: add the document
+	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
+	defer cancel()
+	m := data_models.NewUserRoleModel(userRole)
+	_, err = rcvr.userRolesCollection.InsertOne(ctx, m)
+
+	// step 5: return any errors
+	return err
+}
+
+func (rcvr *UserService) FindUserRole(userRole root.UserRole) ([]root.UserRoles, error) {
+	// establish a nil slice
+	var userRoles []root.UserRoles
+
+	// make the filter and query the userRoles collection
+	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
+	defer cancel()
+	filter := root.MakeBsonDQueryFilter(userRole)
+	count := 0
+	cursor, err := rcvr.userRolesCollection.Find(ctx, filter)
+	if err != nil {
+		return userRoles, err
+	}
+	defer cursor.Close(ctx)
+
+	// walk the cursor returned
+	for cursor.Next(ctx) {
+		var userRole = data_models.NewUserRoleModel(root.UserRole{})
+		cursor.Decode(&userRole)
+		var payload root.UserRoles
+		payload.UserRoleId = userRole.UserRoleId
+		payload.UserId = userRole.UserId
+		payload.RoleId = userRole.RoleId
+		payload.Active = userRole.Active
+		payload.Created = userRole.Created
+		payload.Modified = userRole.Modified
+
+		// grab the user name
+		var user root.User
+		user.UserId = userRole.UserId
+		users, err := rcvr.FindUser(user)
+		if err != nil {
+			return []root.UserRoles{}, nil
+		}
+		payload.Username = users[0].Username
+
+		// grab the role name
+		var role root.Role
+		role.RoleId = userRole.RoleId
+		roles, err := rcvr.roleService.FindRole(role)
+		if err != nil {
+			return []root.UserRoles{}, nil
+		}
+		payload.Rolename = roles[0].Name
+
+		// append a new userRole
+		userRoles = append(userRoles, payload)
+		count++
+	}
+
+	// no userRoles found then toss back an error
+	if count == 0 {
+		return userRoles, errors.New("no user roles found")
+	}
+
+	// otherwise, return the users
+	return userRoles, nil
+}
+
+
+// ---- UserService.ActivateUserRole ----
+func (rcvr *UserService) ActivateUserRole(f root.UserRole, u root.UserRole) error {
+	_, err := rcvr.FindUserRole(f)
+	if err == nil {
+		// ... then update the userrole
+		ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
+		defer cancel()
+		filter := root.MakeBsonDQueryFilter(f)
+		update := root.MakeBsonDUpdateQueryFilter(u)
+		_, err := rcvr.userRolesCollection.UpdateMany(ctx, filter, update)
+		if err != nil {
+			return err
+		}
+	// otherwise, toss back an error
+	} else {
+		return errors.New("user roles not found")
+	}
+	return nil
 }
