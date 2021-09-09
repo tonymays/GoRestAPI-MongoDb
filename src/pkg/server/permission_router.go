@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/mongo"
 	"io"
@@ -38,20 +37,30 @@ func NewPermissionRouter(router *mux.Router, config configuration.Configuration,
 
 // ---- permissionRouter.createPermission ----
 func (rcvr *permissionRouter) createPermission(w http.ResponseWriter, r *http.Request) {
+	// grab the request body
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 	if err != nil {
 		throw(w, err)
 	}
+
+	// place the request body inot a permission struct if possible
 	var p root.Permission
 	err = json.Unmarshal(body, &p)
 	if err != nil {
 		throw(w, err)
 	}
+
+	// create the permission and return an error on failure
 	p, err = rcvr.permissionService.CreatePermission(p)
 	if err == nil {
-		rcvr.respond(w, p)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err := json.NewEncoder(w).Encode(p)
+		if err != nil {
+			panic(err)
+		}
 	} else {
-		throw(w, err)
+		throw(w,err)
 	}
 }
 
@@ -61,7 +70,12 @@ func (rcvr *permissionRouter) findActivePermissions(w http.ResponseWriter, r *ht
 	p.Active = "Yes"
 	permissions, err := rcvr.permissionService.FindPermission(p)
 	if err == nil {
-		rcvr.respondSlice(w,permissions)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err := json.NewEncoder(w).Encode(permissions)
+		if err != nil {
+			panic(err)
+		}
 	} else {
 		throw(w,err)
 	}
@@ -74,7 +88,12 @@ func (rcvr *permissionRouter) findPermission(w http.ResponseWriter, r *http.Requ
 	p.PermissionId = vars["id"]
 	permissions, err := rcvr.permissionService.FindPermission(p)
 	if err == nil {
-		rcvr.respond(w,permissions[0])
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err := json.NewEncoder(w).Encode(permissions[0])
+		if err != nil {
+			panic(err)
+		}
 	} else {
 		throw(w,err)
 	}
@@ -98,8 +117,6 @@ func (rcvr *permissionRouter) updatePermission(w http.ResponseWriter, r *http.Re
 		throw(w,err)
 		return
 	}
-
-	fmt.Println(update)
 	err = update.Validate(false)
 	if err != nil {
 		throw(w,err)
@@ -110,9 +127,14 @@ func (rcvr *permissionRouter) updatePermission(w http.ResponseWriter, r *http.Re
 	filter.PermissionId = vars["id"]
 	permission, err := rcvr.permissionService.UpdatePermission(filter,update)
 	if err == nil {
-		rcvr.respond(w,permission)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err = json.NewEncoder(w).Encode(permission)
+		if err != nil {
+			panic(err)
+		}
 	} else {
-		throw(w,err)
+		throw(w, err)
 	}
 }
 
@@ -125,9 +147,14 @@ func (rcvr *permissionRouter) activatePermission(w http.ResponseWriter, r *http.
 	u.Active = "Yes"
 	permission, err := rcvr.permissionService.UpdatePermission(f,u)
 	if err == nil {
-		rcvr.respond(w,permission)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err = json.NewEncoder(w).Encode(permission)
+		if err != nil {
+			panic(err)
+		}
 	} else {
-		throw(w,err)
+		throw(w, err)
 	}
 }
 
@@ -140,27 +167,13 @@ func (rcvr *permissionRouter) deactivatePermission(w http.ResponseWriter, r *htt
 	u.Active = "No"
 	permission, err := rcvr.permissionService.UpdatePermission(f,u)
 	if err == nil {
-		rcvr.respond(w,permission)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		err = json.NewEncoder(w).Encode(permission)
+		if err != nil {
+			panic(err)
+		}
 	} else {
-		throw(w,err)
-	}
-}
-
-// ---- permissionRouter.respond ----
-func (rcvr *permissionRouter) respond(w http.ResponseWriter, p root.Permission) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(p)
-	if err != nil {
-		throw(w,err)
-	}
-}
-// ---- permissionRouter.respondSlice ----
-func (rcvr *permissionRouter) respondSlice(w http.ResponseWriter, p []root.Permission) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(p)
-	if err != nil {
-		throw(w,err)
+		throw(w, err)
 	}
 }

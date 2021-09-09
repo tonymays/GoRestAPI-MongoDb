@@ -14,7 +14,6 @@ type UserService interface {
 
 // ---- User ----
 type User struct {
-	Id				string		`json:"_id,omitempty"`
 	UserId			string		`json:"user_id,omitempty"`
 	Username		string		`json:"username,omitempty"`
 	Password		string		`json:"password,omitempty"`

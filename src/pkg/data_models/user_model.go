@@ -1,28 +1,26 @@
 package data_models
 
 import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"pkg"
 )
 
 // ---- UserModel ----
 type UserModel struct {
-	Id			primitive.ObjectID	`bson:"_id,omitempty"`
-	UserId		string	 			`bson:"user_id,omitempty"`
-	Username	string 				`bson:"username,omitempty"`
-	Password	string 				`bson:"password,omitempty"`
-	Firstname	string 				`bson:"first_name,omitempty"`
-	Lastname	string 				`bson:"last_name,omitempty"`
-	Address		string 				`bson:"address,omitempty"`
-	City		string 				`bson:"city,omitempty"`
-	State		string 				`bson:"state,omitempty"`
-	Zip			string 				`bson:"zip,omitempty"`
-	Country		string 				`bson:"country,omitempty"`
-	Email		string 				`bson:"email,omitempty"`
-	Phone		string 				`bson:"phone,omitempty"`
-	Active		string 				`bson:"active,omitempty"`
-	Created		string 				`bson:"created,omitempty"`
-	Modified	string 				`bson:"modified,omitempty"`
+	UserId		string	`bson:"user_id,omitempty"`
+	Username	string 	`bson:"username,omitempty"`
+	Password	string 	`bson:"password,omitempty"`
+	Firstname	string 	`bson:"first_name,omitempty"`
+	Lastname	string 	`bson:"last_name,omitempty"`
+	Address		string 	`bson:"address,omitempty"`
+	City		string 	`bson:"city,omitempty"`
+	State		string 	`bson:"state,omitempty"`
+	Zip			string 	`bson:"zip,omitempty"`
+	Country		string 	`bson:"country,omitempty"`
+	Email		string 	`bson:"email,omitempty"`
+	Phone		string 	`bson:"phone,omitempty"`
+	Active		string 	`bson:"active,omitempty"`
+	Created		string 	`bson:"created,omitempty"`
+	Modified	string 	`bson:"modified,omitempty"`
 }
 
 // ---- NewUserModel ----

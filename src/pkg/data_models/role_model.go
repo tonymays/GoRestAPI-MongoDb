@@ -1,18 +1,16 @@
 package data_models
 
 import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"pkg"
 )
 
 // ---- RoleModel ----
 type RoleModel struct {
-	Id			primitive.ObjectID	`bson:"_id,omitempty"`
-	RoleId		string	 			`bson:"role_id,omitempty"`
-	Name		string 				`bson:"name,omitempty"`
-	Active		string 				`bson:"active,omitempty"`
-	Created		string 				`bson:"created,omitempty"`
-	Modified	string 				`bson:"modified,omitempty"`
+	RoleId		string	`bson:"role_id,omitempty"`
+	Name		string 	`bson:"name,omitempty"`
+	Active		string 	`bson:"active,omitempty"`
+	Created		string 	`bson:"created,omitempty"`
+	Modified	string 	`bson:"modified,omitempty"`
 }
 
 // ---- NewRoleModel ----

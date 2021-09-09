@@ -11,7 +11,6 @@ type PermissionService interface {
 }
 
 type Permission struct {
-	Id				string	`json:"_id,omitempty"`
 	PermissionId	string	`json:"permission_id,omitempty"`
 	Tag				string	`json:"tag,omitempty"`
 	Active			string	`json:"active,omitempty"`
@@ -20,7 +19,6 @@ type Permission struct {
 }
 
 func (rcvr *Permission) Validate(opCreate bool) error {
-	if len(rcvr.Id) > 0 {return errors.New("cannot set id")}
 	if opCreate {
 		if len(rcvr.PermissionId) == 0 {return errors.New("missing permission id")}
 		if len(rcvr.Tag) == 0 {return errors.New("missing tag")}

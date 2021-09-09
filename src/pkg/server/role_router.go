@@ -48,9 +48,11 @@ func (rcvr *roleRouter) createRole(w http.ResponseWriter, r *http.Request) {
 	}
 	ro, err := rcvr.roleService.CreateRole(role)
 	if err == nil {
-		rcvr.respond(w, ro)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(ro)
 	} else {
-		throw(w, err)
+		throw(w,err)
 	}
 }
 
@@ -60,7 +62,9 @@ func (rcvr *roleRouter) findActiveRole(w http.ResponseWriter, r *http.Request) {
 	role.Active = "Yes"
 	roles, err := rcvr.roleService.FindRole(role)
 	if err == nil {
-		rcvr.respondSlice(w,roles)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(roles)
 	} else {
 		throw(w,err)
 	}
@@ -73,7 +77,9 @@ func (rcvr *roleRouter) findRole(w http.ResponseWriter, r *http.Request) {
 	role.RoleId = vars["id"]
 	roles, err := rcvr.roleService.FindRole(role)
 	if err == nil {
-		rcvr.respond(w,roles[0])
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(roles[0])
 	} else {
 		throw(w,err)
 	}
@@ -107,7 +113,9 @@ func (rcvr *roleRouter) updateRole(w http.ResponseWriter, r *http.Request) {
 	filter.RoleId = vars["id"]
 	role, err := rcvr.roleService.UpdateRole(filter,update)
 	if err == nil {
-		rcvr.respond(w,role)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(role)
 	} else {
 		throw(w,err)
 	}
@@ -122,7 +130,9 @@ func (rcvr *roleRouter) activateRole(w http.ResponseWriter, r *http.Request) {
 	u.Active = "Yes"
 	role, err := rcvr.roleService.UpdateRole(f,u)
 	if err == nil {
-		rcvr.respond(w,role)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(role)
 	} else {
 		throw(w,err)
 	}
@@ -137,27 +147,10 @@ func (rcvr *roleRouter) deactivateRole(w http.ResponseWriter, r *http.Request) {
 	u.Active = "No"
 	role, err := rcvr.roleService.UpdateRole(f,u)
 	if err == nil {
-		rcvr.respond(w,role)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(role)
 	} else {
-		throw(w,err)
-	}
-}
-
-// ---- roleRouter.respond ----
-func (rcvr *roleRouter) respond(w http.ResponseWriter, r root.Role) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(r)
-	if err != nil {
-		throw(w,err)
-	}
-}
-// ---- roleRouter.respondSlice ----
-func (rcvr *roleRouter) respondSlice(w http.ResponseWriter, r []root.Role) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(r)
-	if err != nil {
 		throw(w,err)
 	}
 }

@@ -13,7 +13,6 @@ type RoleService interface {
 
 // ---- Role ----
 type Role struct {
-	Id			string	`json:"_id,omitempty"`
 	RoleId		string	`json:"role_id,omitempty"`
 	Name		string	`json:"name,omitempty"`
 	Active		string	`json:"active,omitempty"`

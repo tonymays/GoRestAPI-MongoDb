@@ -56,9 +56,11 @@ func (rcvr *userRouter) createUser(w http.ResponseWriter, r *http.Request) {
 	}
 	u, err := rcvr.userService.CreateUser(user)
 	if err == nil {
-		rcvr.respond(w, u)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(u)
 	} else {
-		throw(w, err)
+		throw(w,err)
 	}
 }
 
@@ -68,7 +70,9 @@ func (rcvr *userRouter) findActiveUsers(w http.ResponseWriter, r *http.Request) 
 	u.Active = "Yes"
 	users, err := rcvr.userService.FindUser(u)
 	if err == nil {
-		rcvr.respondSlice(w,users)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(users)
 	} else {
 		throw(w,err)
 	}
@@ -81,7 +85,9 @@ func (rcvr *userRouter) findUser(w http.ResponseWriter, r *http.Request) {
 	u.UserId = vars["id"]
 	users, err := rcvr.userService.FindUser(u)
 	if err == nil {
-		rcvr.respond(w,users[0])
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(users[0])
 	} else {
 		throw(w,err)
 	}
@@ -115,7 +121,9 @@ func (rcvr *userRouter) updateUser(w http.ResponseWriter, r *http.Request) {
 	filter.UserId = vars["id"]
 	user, err := rcvr.userService.UpdateUser(filter,update)
 	if err == nil {
-		rcvr.respond(w,user)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(user)
 	} else {
 		throw(w,err)
 	}
@@ -130,7 +138,9 @@ func (rcvr *userRouter) activateUser(w http.ResponseWriter, r *http.Request) {
 	u.Active = "Yes"
 	user, err := rcvr.userService.UpdateUser(f,u)
 	if err == nil {
-		rcvr.respond(w,user)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(user)
 	} else {
 		throw(w,err)
 	}
@@ -145,7 +155,9 @@ func (rcvr *userRouter) deactivateUser(w http.ResponseWriter, r *http.Request) {
 	u.Active = "No"
 	user, err := rcvr.userService.UpdateUser(f,u)
 	if err == nil {
-		rcvr.respond(w,user)
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(user)
 	} else {
 		throw(w,err)
 	}
@@ -169,23 +181,4 @@ func (rcvr *userRouter) activateUserRole(w http.ResponseWriter, r *http.Request)
 // ---- userRouter.deactivateUserRole ----
 func (rcvr *userRouter) deactivateUserRole(w http.ResponseWriter, r *http.Request) {
 
-}
-
-// ---- userRouter.respond ----
-func (rcvr *userRouter) respond(w http.ResponseWriter, u root.User) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(u)
-	if err != nil {
-		throw(w,err)
-	}
-}
-// ---- userRouter.respondSlice ----
-func (rcvr *userRouter) respondSlice(w http.ResponseWriter, u []root.User) {
-	w = SetResponseHeaders(w, "", "")
-	w.WriteHeader(http.StatusOK)
-	err := json.NewEncoder(w).Encode(u)
-	if err != nil {
-		throw(w,err)
-	}
 }
