@@ -169,12 +169,26 @@ func (rcvr *userRouter) findUserRoles(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	userRole.UserId = vars["id"]
 	userRoles, err := rcvr.userService.FindUserRole(userRole)
-
-	//TODO: remove inactive roles
 	if err == nil {
+		// only return active user roles
+		var roles []root.UserRoles
+		for _, elUserRole := range userRoles {
+			if elUserRole.Active == "Yes" {
+				var payload root.UserRoles
+				payload.UserRoleId = elUserRole.UserRoleId
+				payload.UserId = elUserRole.UserId
+				payload.RoleId = elUserRole.RoleId
+				payload.Username = elUserRole.Username
+				payload.Rolename = elUserRole.Rolename
+				payload.Active = elUserRole.Active
+				payload.Created = elUserRole.Created
+				payload.Modified = elUserRole.Modified
+				roles = append(roles, payload)
+			}
+		}
 		w = SetResponseHeaders(w, "", "")
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(userRoles)
+		json.NewEncoder(w).Encode(roles)
 	} else {
 		throw(w,err)
 	}
