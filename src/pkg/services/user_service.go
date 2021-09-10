@@ -12,18 +12,19 @@ import (
 
 // ---- UserService ----
 type UserService struct {
-	config				configuration.Configuration
-	dbClient			*mongo.Client
-	roleService			root.RoleService
-	usersCollection		*mongo.Collection
-	userRolesCollection	*mongo.Collection
+	config					configuration.Configuration
+	dbClient				*mongo.Client
+	roleService				root.RoleService
+	rolePermissionService	root.RolePermissionService
+	usersCollection			*mongo.Collection
+	userRolesCollection		*mongo.Collection
 }
 
 // ---- NewUserService ----
-func NewUserService(config configuration.Configuration, dbClient *mongo.Client, roleService root.RoleService) *UserService {
+func NewUserService(config configuration.Configuration, dbClient *mongo.Client, roleService root.RoleService, rolePermissionService root.RolePermissionService) *UserService {
 	uc := dbClient.Database(config.DbName).Collection("users")
 	urc := dbClient.Database(config.DbName).Collection("user_roles")
-	return &UserService{config, dbClient, roleService, uc, urc}
+	return &UserService{config, dbClient, roleService, rolePermissionService, uc, urc}
 }
 
 // ---- UserService.CreateUser ----
@@ -141,6 +142,7 @@ func (rcvr *UserService) UpdateUser(f root.User, u root.User) (root.User, error)
 	}
 }
 
+// ---- UserService.AssignUserRole ----
 func (rcvr *UserService) AssignUserRole(userRole root.UserRole) error {
 	// step 1: validate the assignment
 	err := userRole.Validate(true)
@@ -174,6 +176,7 @@ func (rcvr *UserService) AssignUserRole(userRole root.UserRole) error {
 	return err
 }
 
+// ---- UserService.FindUserRole ----
 func (rcvr *UserService) FindUserRole(userRole root.UserRole) ([]root.UserRoles, error) {
 	// establish a nil slice
 	var userRoles []root.UserRoles
@@ -233,7 +236,6 @@ func (rcvr *UserService) FindUserRole(userRole root.UserRole) ([]root.UserRoles,
 	return userRoles, nil
 }
 
-
 // ---- UserService.ActivateUserRole ----
 func (rcvr *UserService) ActivateUserRole(f root.UserRole, u root.UserRole) error {
 	_, err := rcvr.FindUserRole(f)
@@ -252,4 +254,28 @@ func (rcvr *UserService) ActivateUserRole(f root.UserRole, u root.UserRole) erro
 		return errors.New("user roles not found")
 	}
 	return nil
+}
+
+// ---- UserService.GetServiceCatalog ----
+func (rcvr *UserService) GetServiceCatalog(u root.User) ([]string, error) {
+	var serviceCatalog []string
+	_, err := rcvr.FindUser(u)
+	if err != nil {
+		return []string{}, errors.New("user not found")
+	}
+	var userRole root.UserRole
+	userRole.UserId = u.UserId
+	userRoles, err := rcvr.FindUserRole(userRole)
+	if err != nil {
+		return []string{}, err
+	}
+	for _, elUserRole := range userRoles {
+		var role root.Role
+		role.RoleId = elUserRole.RoleId
+		rolePermissions, _ := rcvr.rolePermissionService.FindRolePermission(role)
+		for _, elRolePermission := range rolePermissions {
+			serviceCatalog = append(serviceCatalog, elRolePermission.Tag)
+		}
+	}
+	return serviceCatalog, nil
 }

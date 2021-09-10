@@ -13,6 +13,7 @@ type UserService interface {
 	AssignUserRole(userRole UserRole) error
 	FindUserRole(userRole UserRole) ([]UserRoles, error)
 	ActivateUserRole(f UserRole, u UserRole) error
+	GetServiceCatalog(u User) ([]string, error)
 }
 
 // ---- User ----

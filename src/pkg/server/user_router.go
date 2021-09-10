@@ -35,6 +35,10 @@ func NewUserRouter(router *mux.Router, config configuration.Configuration, dbCli
 	router.HandleFunc("/users/{id}/roles", HandleOptionsRequest).Methods("OPTIONS")
 	router.HandleFunc("/users/{id}/roles", VerifyToken(userRouter.findUserRoles, config, dbClient)).Methods("GET")
 
+	router.HandleFunc("/users/{id}/service_catalog", HandleOptionsRequest).Methods("OPTIONS")
+	router.HandleFunc("/users/{id}/service_catalog", VerifyToken(userRouter.getServiceCatalog, config, dbClient)).Methods("GET")
+
+
 	router.HandleFunc("/users/{userId}/roles/{roleId}", HandleOptionsRequest).Methods("OPTIONS")
 	router.HandleFunc("/users/{userId}/roles/{roleId}", VerifyToken(userRouter.assignUserRole, config, dbClient)).Methods("PUT")
 	router.HandleFunc("/users/{userId}/roles/{roleId}", VerifyToken(userRouter.activateUserRole, config, dbClient)).Methods("PATCH")
@@ -247,6 +251,21 @@ func (rcvr *userRouter) deactivateUserRole(w http.ResponseWriter, r *http.Reques
 		w = SetResponseHeaders(w, "", "")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(u)
+	} else {
+		throw(w,err)
+	}
+}
+
+// ---- userRouter.getUserServiceCatalog ----
+func (rcvr *userRouter) getServiceCatalog(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	var u root.User
+	u.UserId = vars["id"]
+	serviceCatalog, err := rcvr.userService.GetServiceCatalog(u)
+	if err == nil {
+		w = SetResponseHeaders(w, "", "")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(serviceCatalog)
 	} else {
 		throw(w,err)
 	}
