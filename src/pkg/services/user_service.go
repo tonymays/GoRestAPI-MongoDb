@@ -277,5 +277,22 @@ func (rcvr *UserService) GetServiceCatalog(u root.User) ([]string, error) {
 			serviceCatalog = append(serviceCatalog, elRolePermission.Tag)
 		}
 	}
+	serviceCatalog = rcvr.removeDuplicateStrings(serviceCatalog)
 	return serviceCatalog, nil
 }
+
+// ---- UserService.removeDuplicateStrings ----
+func (rcvr *UserService) removeDuplicateStrings(strList []string) []string {
+	keys := make(map[string]bool)
+	list := []string{}
+	for _, entry := range strList {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
+}
+
+
+
