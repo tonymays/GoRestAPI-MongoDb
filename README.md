@@ -80,9 +80,7 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the role_permission_router is responsible for permission assignment to individual roles
 
 ### <ins>Auth Router Endpoints</ins>
-#### 1. POST /auth
-##### Purpose: user login
-
+#### 1. POST /auth - Session Login
 ##### Request
 * Headers
 ```
