@@ -84,7 +84,9 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 ##### Request
 * Headers
 ```
+{
 	Content-Type: application/json
+}
 ```
 
 * Body
