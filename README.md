@@ -316,15 +316,15 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 {
     "username": "root",
     "password": "abc123xy890",
-    "first_name": "Anthony",
-    "last_name": "Mays",
-    "address": "3904 Long Meadow Court",
-    "city": "Plano",
-    "state": "TX",
-    "zip": "75074",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "address": "123 ABC Ave",
+    "city": "Long Beach",
+    "state": "Ca",
+    "zip": "12345",
     "country": "United States",
-    "email": "anthony.d.mays@gmail.com",
-    "phone": "4697926095"
+    "email": "jane.doe@yehoo.com",
+    "phone": "1234567890"
 }
 ```
 
