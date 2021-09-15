@@ -14,6 +14,7 @@ type UserService interface {
 	FindUserRole(userRole UserRole) ([]UserRoles, error)
 	ActivateUserRole(f UserRole, u UserRole) error
 	GetServiceCatalog(u User) ([]string, error)
+	CountUser() int64
 }
 
 // ---- User ----
@@ -86,10 +87,10 @@ func (rcvr *User) HashPassword(p string) (string, error) {
 }
 
 // ---- User.ValidatePassword ----
-func (rcvr *User) ValidatePassword(p string, hp string) bool {
-	byteP := []byte(p)
-	byteHp := []byte(hp)
-	err := bcrypt.CompareHashAndPassword(byteHp, byteP)
+func (rcvr *User) ValidatePassword(password string, hashedPassword string) bool {
+	bytePassword := []byte(password)
+	byteHashedPassword := []byte(hashedPassword)
+	err := bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 	if err != nil {
 		return false
 	}

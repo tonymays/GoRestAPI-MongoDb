@@ -16,6 +16,8 @@ type Configuration struct {
     ServerListenPort	string
 	RootUserName		string
 	RootPassword		string
+	Firstname			string
+	Lastname			string
 	Address				string
 	City				string
 	State				string

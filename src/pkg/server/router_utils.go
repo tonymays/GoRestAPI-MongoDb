@@ -6,6 +6,11 @@ import (
 	"strings"
 )
 
+// --- JWTError ----
+type JWTError struct {
+	Message string `json:"message"`
+}
+
 // ---- jsonErr ----
 type jsonErr struct {
 	Code int    `json:"code"`

@@ -8,6 +8,8 @@
     "ServerListenPort": "",
 	"RootUserName": "",
 	"RootPassword": "",
+	"Firstname": "",
+	"Lastname": "",
 	"Address": "",
 	"City": "",
 	"State": "",

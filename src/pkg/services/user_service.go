@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"pkg"
 	"pkg/configuration"
@@ -279,6 +280,14 @@ func (rcvr *UserService) GetServiceCatalog(u root.User) ([]string, error) {
 	}
 	serviceCatalog = rcvr.removeDuplicateStrings(serviceCatalog)
 	return serviceCatalog, nil
+}
+
+// ---- UserService.CountUsers ----
+func (rcvr *UserService) CountUser() int64 {
+	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
+	defer cancel()
+	count, _ := rcvr.usersCollection.CountDocuments(ctx, bson.D{})
+	return count
 }
 
 // ---- UserService.removeDuplicateStrings ----

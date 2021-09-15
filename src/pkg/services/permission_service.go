@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 	"errors"
-	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"pkg"
 	"pkg/configuration"
@@ -84,7 +83,6 @@ func (rcvr *PermissionService) FindPermission(p root.Permission) ([]root.Permiss
 	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
 	defer cancel()
 	filter := root.MakeBsonDQueryFilter(p)
-	fmt.Println(filter)
 	count := 0
 	cursor, err := rcvr.permissionsCollection.Find(ctx, filter)
 	if err != nil {

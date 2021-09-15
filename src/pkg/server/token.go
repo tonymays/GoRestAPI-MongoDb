@@ -8,15 +8,15 @@ import (
 )
 
 // ---- CreateToken ----
-func CreateToken(userToken root.UserToken, config configuration.Configuration, exp int64, remoteAddr string) string {
+func CreateToken(userToken root.UserToken, config configuration.Configuration, exp int64) string {
 	var MySigningKey = []byte(config.Secret)
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
-	claims[ "user_id" ] = userToken.UserId
-	claims[ "username" ] = userToken.Username
-	claims[ "email" ] = userToken.Email
-	claims["remote_addr"] = remoteAddr
-	claims[ "exp" ] = exp
+	claims["user_id"] = userToken.UserId
+	claims["username"] = userToken.Username
+	claims["email"] = userToken.Email
+	claims["remote_addr"] = userToken.RemoteAddr
+	claims["exp"] = exp
 	tokenString, _ := token.SignedString(MySigningKey)
 	return tokenString
 }
