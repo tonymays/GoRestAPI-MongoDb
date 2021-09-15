@@ -105,14 +105,16 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 
 ### <ins>API List</ins>
 ```
-<ins>auth_router</ins>
+Auth Router
+-----------
 POST /auth                             -
 DELETE /auth                           -
 GET /auth                              -
 HEAD /auth                             -
 PUT /auth                              -
 
-<ins>users_router</ins>
+User Router
+-----------
 POST /users                            -
 GET /users                             -
 GET /users/{id}                        -
