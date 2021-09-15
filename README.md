@@ -106,50 +106,52 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 ### <ins>II. API List</ins>
 * Auth Router
 ```
-POST /auth   -
-DELETE /auth -
-GET /auth    -
-HEAD /auth   -
-PUT /auth    -
+POST /auth   - session login
+DELETE /auth - session logout
+GET /auth    - session refresh
+HEAD /auth   - check session
+PUT /auth    - change user password
 ```
 
 * User Router
 ```
-POST /users                            -
-GET /users                             -
-GET /users/{id}                        -
-PATCH /users/{id}                      -
-PUT /users/{id}                        -
-DELETE /users/{id}                     -
-GET /users/{id}/roles                  -
-GET /users/{id}/service_catalog        -
-PUT /users/{userId}/roles.{roleId}     -
-PATCH /users/{userId}/roles.{roleId}   -
-DELETE /users/{userId}/roles.{roleId}  -
+POST /users                            - create user
+GET /users                             - find all active users
+GET /users/{id}                        - get user specified by {id}
+PATCH /users/{id}                      - update user specified by {id}
+PUT /users/{id}                        - activate user specified by {id}
+DELETE /users/{id}                     - deactivate user specified by {id}
+GET /users/{id}/roles                  - get all roles for the user specified by {id}
+GET /users/{id}/service_catalog        - get service catalog for the user specified by {id}
+PUT /users/{userId}/roles.{roleId}     - assign role specified by {roleId} to user specified by {userId}
+PATCH /users/{userId}/roles.{roleId}   - activate role specified by {roleId} to user specified by {userId}
+DELETE /users/{userId}/roles.{roleId}  - deactivate role specified by {roleId} to user specified by {userId}
 ```
 
 * Roles Router
 ```
-POST /roles        -
-GET /roles         -
-GET /roles/{id}    -
-PATCH /roles/{id}  -
-PUT /roles/{id}    -
+POST /roles        - create role
+GET /roles         - get all active roles
+GET /roles/{id}    - get role specified by {id}
+PATCH /roles/{id}  - update role specified by {id}
+PUT /roles/{id}    - activate role specified by {id}
+DELETE /roles/{id} - deactivate role specified by {id}
 ```
 
 * Permissions Router
 ```
-POST /permissions         -
-GET /permissions          -
-GET /permissions/{id}     -
-PATCH /permissions/{id}   -
-PUT /permissions/{id}     -
-DELETE /permissions/{id}  -
+POST /permissions         - create permission
+GET /permissions          - get all active permissions
+GET /permissions/{id}     - get permission specified by {id}
+PATCH /permissions/{id}   - update permission specified by {id}
+PUT /permissions/{id}     - activate permission specified by {id}
+DELETE /permissions/{id}  - deactivate permission specified by {id}
 ```
 
 * Role Permssions Router
 ```
-
+POST /role/{id}/permissions  - set permissions for the role specified by {id}
+GET /role/{id}/permissions   - get permissions for the role specified by {id}
 ```
 
 ### <ins>III. Auth Router Endpoints</ins>
