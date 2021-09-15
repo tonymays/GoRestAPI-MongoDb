@@ -93,9 +93,6 @@ new server initialization complete
 Listening on port :8080
 ```
 
-
-
-
 ## API Reference
 This package contains 5 separate routers: auth_router, permission_router, role_permission_router, role_router and a user_router
 
@@ -107,8 +104,8 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the role_permission_router is responsible for permission assignment to individual roles
 
 ### <ins>API List</ins>
-* POST /auth
-* DELETE /auth
+* **POST /auth**
+* **DELETE /auth**
 * GET /auth
 * HEAD /auth
 * PUT /auth
@@ -123,7 +120,11 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * PUT /users/{userId}/roles.{roleId}
 * PATCH /users/{userId}/roles.{roleId}
 * DELETE /users/{userId}/roles.{roleId}
-
+* POST /roles
+* GET /roles
+* GET /roles/{id}
+* PATCH /roles/{id}
+* PUT /roles/{id}
 
 ### <ins>Auth Router Endpoints</ins>
 #### 1. Session Login
@@ -472,6 +473,127 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 
 #### 11. Deactivate role specified by {roleId} for user specified by {userId}
 * DELETE /users/{userId}/roles.{roleId}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+### <ins>Role Router Endpoints</ins>
+#### 1. Create Role
+* POST /roles
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 2. Get Active Roles
+* GET /roles
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 3. Get role specified by {id}
+* GET /roles/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 4. Update role specified by {id}
+* PATCH /roles/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 5. Activate role specified by {id}
+* PUT /roles/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 6. Deactivate role specified by {id}
+* DELETE /roles/{id}
 
 ##### Request
 * Headers
