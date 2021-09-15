@@ -82,8 +82,8 @@ ___
 
 ### Auth Router Endpoints
 ___
-#### OPTIONS /auth
-#### POST /auth
+###### OPTIONS /auth
+###### POST /auth
 
 
 router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
