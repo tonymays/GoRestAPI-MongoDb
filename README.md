@@ -75,26 +75,33 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 ### Router Responsibilities
 ___
 * the auth_router is responsible for session management such as sign-in and logout
+* the user_router is responsible for managing package user
+* the role_router is responsible for managing custom package roles
 * the permission_router is responsible for permission management when new features are added
 * the role_permission_router is responsible for permission assignment to individual roles
-* the role_router is responsible for managing custom package roles
-* the user_router is responsible for managing package user
 
 ### Auth Router Endpoints
 ___
-1. OPTIONS /auth
-2. POST /auth
-3. DELETE /auth
-4. GET /auth
-5. HEAD /auth
-6. PUT /auth
+#### 1. POST /auth
+#### 2. DELETE /auth
+#### 3. GET /auth
+#### 4. HEAD /auth
+#### 5. PUT /auth
 
-router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
-router.HandleFunc("/auth", authRouter.startSession).Methods("POST")
-router.HandleFunc("/auth", VerifyToken(authRouter.killSession, config, dbClient)).Methods("DELETE")
-router.HandleFunc("/auth", VerifyToken(authRouter.refreshSession, config, dbClient)).Methods("GET")
-router.HandleFunc("/auth", VerifyToken(authRouter.checkSession, config, dbClient)).Methods("HEAD")
-router.HandleFunc("/auth", VerifyToken(authRouter.changePassword, config, dbClient)).Methods("PUT")
+### User Router Endpoints
+#### 1.POST /users
+#### 2.GET /users
+#### 3.GET /users/{id}
+#### 4.PATCH /users/{id}
+#### 5.PUT /users/{id}
+#### 6.DELETE /users/{id}
+#### 7.GET /users/{id}/roles
+#### 8.GET /users/{id}/service_catalog
+#### 9.PUT /users/{userId}/roles.{roleId}
+#### 10.PATCH /users/{userId}/roles.{roleId}
+#### 11.DELETE /users/{userId}/roles.{roleId}
+
+
 
 
 
