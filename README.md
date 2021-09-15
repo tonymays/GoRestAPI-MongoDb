@@ -96,25 +96,25 @@ Listening on port :8080
 ## API Reference
 This package contains 5 separate routers: auth_router, permission_router, role_permission_router, role_router and a user_router
 
-### <ins>Router Responsibilities</ins>
+### <ins>I. Router Responsibilities</ins>
 * the auth_router is responsible for session management such as sign-in and logout
 * the user_router is responsible for managing package user
 * the role_router is responsible for managing custom package roles
 * the permission_router is responsible for permission management when new features are added
 * the role_permission_router is responsible for permission assignment to individual roles
 
-### <ins>API List</ins>
+### <ins>II. API List</ins>
+* Auth Router
 ```
-Auth Router
------------
-POST /auth                             -
-DELETE /auth                           -
-GET /auth                              -
-HEAD /auth                             -
-PUT /auth                              -
+POST /auth   -
+DELETE /auth -
+GET /auth    -
+HEAD /auth   -
+PUT /auth    -
+```
 
-User Router
------------
+* User Router
+```
 POST /users                            -
 GET /users                             -
 GET /users/{id}                        -
@@ -126,20 +126,33 @@ GET /users/{id}/service_catalog        -
 PUT /users/{userId}/roles.{roleId}     -
 PATCH /users/{userId}/roles.{roleId}   -
 DELETE /users/{userId}/roles.{roleId}  -
-POST /roles                            -
-GET /roles                             -
-GET /roles/{id}                        -
-PATCH /roles/{id}                      -
-PUT /roles/{id}                        -
-POST /permissions                      -
-GET /permissions                       -
-GET /permissions/{id}                  -
-PATCH /permissions/{id}                -
-PUT /permissions/{id}                  -
-DELETE /permissions/{id}               -
 ```
 
-### <ins>Auth Router Endpoints</ins>
+* Roles Router
+```
+POST /roles        -
+GET /roles         -
+GET /roles/{id}    -
+PATCH /roles/{id}  -
+PUT /roles/{id}    -
+```
+
+* Permissions Router
+```
+POST /permissions         -
+GET /permissions          -
+GET /permissions/{id}     -
+PATCH /permissions/{id}   -
+PUT /permissions/{id}     -
+DELETE /permissions/{id}  -
+```
+
+* Role Permssions Router
+```
+
+```
+
+### <ins>III. Auth Router Endpoints</ins>
 #### 1. Session Login
 * POST /auth
 
@@ -283,7 +296,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-### <ins>User Router Endpoints</ins>
+### <ins>IV. User Router Endpoints</ins>
 #### 1. Create User
 * POST /users
 
@@ -504,7 +517,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-### <ins>Role Router Endpoints</ins>
+### <ins>V. Role Router Endpoints</ins>
 #### 1. Create Role
 * POST /roles
 
@@ -625,7 +638,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-### <ins>Permission Router Endpoints</ins>
+### <ins>VI. Permission Router Endpoints</ins>
 #### 1. Create Permission
 * POST /permissions
 
@@ -746,8 +759,48 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-router.HandleFunc("/role/{id}/permissions", VerifyToken(rolePermissionRouter.setRolePermissions, config, dbClient)).Methods("POST")
-router.HandleFunc("/role/{id}/permissions", VerifyToken(rolePermissionRouter.findRolePermissions, config, dbClient)).Methods("GET")
+### <ins>VII. Role Permissions Router Endpoints</ins>
+#### 1. Set Role Permissions for the role specified by {id}
+* POST /role/{id}/permissions
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 2. Get All Active Permissions for the role specified by {id}
+* GET /role/{id}/permissions
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+## API Go Tests
 
 
 
