@@ -224,18 +224,159 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ### <ins>User Router Endpoints</ins>
-#### 1. POST /users
-#### 2. GET /users
-#### 3. GET /users/{id}
-#### 4. PATCH /users/{id}
-#### 5. PUT /users/{id}
-#### 6. DELETE /users/{id}
-#### 7. GET /users/{id}/roles
-#### 8. GET /users/{id}/service_catalog
-#### 9. PUT /users/{userId}/roles.{roleId}
-#### 10. PATCH /users/{userId}/roles.{roleId}
-#### 11. DELETE /users/{userId}/roles.{roleId}
+#### 1. Create User
+* POST /users
 
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 2. Get All Active Users
+* GET /users
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 3. Get User specified by {id}
+* GET /users/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 4. Update User
+* PATCH /users/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 5. Activate User
+* PUT /users/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 6. Deactivate User
+* DELETE /users/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 7. User roles for user specified by {id}
+* GET /users/{id}/roles
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 8. Get User Service Catalog (Permissions)
+* GET /users/{id}/service_catalog
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 9. Assign role specified by {roleId} to user specified by {userId}
+* PUT /users/{userId}/roles.{roleId}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 10. Activate role specified by {roleId} for user specified by {userId}
+* PATCH /users/{userId}/roles.{roleId}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+
+#### 11. Deactivate role specified by {roleId} for user specified by {userId}
+* DELETE /users/{userId}/roles.{roleId}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
 
 
 
