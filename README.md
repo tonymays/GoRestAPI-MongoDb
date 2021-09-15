@@ -81,6 +81,8 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 
 ### <ins>Auth Router Endpoints</ins>
 #### 1. POST /auth
+##### Purpose: user login
+
 ##### Request
 * Headers
 ```
