@@ -63,3 +63,8 @@ $ cp conf_example.json conf.json
 * Phone            - the root user's phone number
 ```
 
+6. Copy src/app/conf_test_example.json to src/app/conf_test.json and repeat step 5 in conf_test.json if you plan on using or expanding the built in go tests.
+```bash
+$ cd src/app
+$ cp conf_test_example.json conf_test.json
+```
