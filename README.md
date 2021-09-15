@@ -81,6 +81,44 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 
 ### <ins>Auth Router Endpoints</ins>
 #### 1. POST /auth
+##### Request
+* Headers
+```
+	Content-Type: application/json
+```
+
+* Body
+```
+{
+	"username": "root",
+	"password": "abc123xyz890"
+}
+```
+##### Response
+* Headers
+```
+{
+	Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudGhvbnkuZC5tYXlzQGdtYWlsLmNvbSIsImV4cCI6MTYzMTczNDcyNSwicmVtb3RlX2FkZHIiOiI0Ny4xODUuMjIzLjUxIiwidXNlcl9pZCI6Ijk4MmIyYTc5LWJlMmEtNDdlMi1hNTcyLTEwNjZlYjVhOTljOCIsInVzZXJuYW1lIjoicm9vdCJ9.bv6BuoJhcroMJvt-bB0NnFsJJ5mf4a1U6h4EnKCSY5Q
+	Status: 200 OK
+}
+```
+Every API call in this package, minus this API, will require the Auth-Token as a header.  It will be referred to as {Auth-Token} going forward.
+
+* Body
+```
+{
+    "user_idid": "982b2a79-be2a-47e2-a572-1066eb5a99c8",
+    "username": "root",
+    "email": "YOUR USER Email Address",
+    "remote_addr": "YOUR LOGIN IP",
+    "service_catalog": [
+        "Can Add User",
+        "Can Edit User",
+        "Can Delete User"
+    ]
+}
+```
+
 #### 2. DELETE /auth
 #### 3. GET /auth
 #### 4. HEAD /auth
@@ -88,17 +126,17 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 
 
 ### <ins>User Router Endpoints</ins>
-#### 1.POST /users
-#### 2.GET /users
-#### 3.GET /users/{id}
-#### 4.PATCH /users/{id}
-#### 5.PUT /users/{id}
-#### 6.DELETE /users/{id}
-#### 7.GET /users/{id}/roles
-#### 8.GET /users/{id}/service_catalog
-#### 9.PUT /users/{userId}/roles.{roleId}
-#### 10.PATCH /users/{userId}/roles.{roleId}
-#### 11.DELETE /users/{userId}/roles.{roleId}
+#### 1. POST /users
+#### 2. GET /users
+#### 3. GET /users/{id}
+#### 4. PATCH /users/{id}
+#### 5. PUT /users/{id}
+#### 6. DELETE /users/{id}
+#### 7. GET /users/{id}/roles
+#### 8. GET /users/{id}/service_catalog
+#### 9. PUT /users/{userId}/roles.{roleId}
+#### 10. PATCH /users/{userId}/roles.{roleId}
+#### 11. DELETE /users/{userId}/roles.{roleId}
 
 
 
