@@ -69,6 +69,32 @@ $ cd src/app
 $ cp conf_test_example.json conf_test.json
 ```
 
+7. Compile the package - must be in the project folder and your go variables must set for this project
+```bash
+$ go build ./src/app
+```
+
+8. Run the app
+```bash
+$ ./app
+```
+* Notes: the first time you run the app the server will initialize itself by creating the root user, role, based permissions etc.
+```bash
+initializing new server
+------------------------------------------------------------
+   step 1: creating root user...
+   step 2: creating admin role...
+   step 3: creating system permissions...
+   step 4: assigning permissions to the admin role...
+   step 5: assigning root user to Admin role...
+------------------------------------------------------------
+new server initialization complete
+Listening on port :8080
+```
+
+
+
+
 ## API Reference
 This package contains 5 separate routers: auth_router, permission_router, role_permission_router, role_router and a user_router
 
@@ -256,6 +282,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 2. Get All Active Users
 * GET /users
@@ -270,6 +302,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 3. Get User specified by {id}
 * GET /users/{id}
@@ -284,6 +322,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 4. Update User
 * PATCH /users/{id}
@@ -298,6 +342,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 5. Activate User
 * PUT /users/{id}
@@ -312,6 +362,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 6. Deactivate User
 * DELETE /users/{id}
@@ -326,6 +382,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 7. User roles for user specified by {id}
 * GET /users/{id}/roles
@@ -340,6 +402,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 8. Get User Service Catalog (Permissions)
 * GET /users/{id}/service_catalog
@@ -354,6 +422,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 9. Assign role specified by {roleId} to user specified by {userId}
 * PUT /users/{userId}/roles.{roleId}
@@ -368,6 +442,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 10. Activate role specified by {roleId} for user specified by {userId}
 * PATCH /users/{userId}/roles.{roleId}
@@ -382,6 +462,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 #### 11. Deactivate role specified by {roleId} for user specified by {userId}
 * DELETE /users/{userId}/roles.{roleId}
@@ -396,6 +482,12 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 
 ##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
 
 

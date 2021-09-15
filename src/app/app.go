@@ -17,11 +17,12 @@ type App struct {
 
 // ---- App.Init ----
 func (rcvr *App) Init(e string) error {
-	// Step 1: Load Configuration Settings
+	// Step 1: Load Configuration Settings and set the environment
 	config, err := configuration.Init(e)
 	if err != nil {
 		return err
 	}
+	config.Environment = e
 
 	// Step 2: Connect to the targeted Mongo Database
 	dbClient, err := mongo.NewClient(options.Client().ApplyURI(config.MongoUri))

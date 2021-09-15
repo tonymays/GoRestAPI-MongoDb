@@ -25,6 +25,7 @@ type Configuration struct {
 	Country				string
 	Email				string
 	Phone				string
+	Environment			string
 }
 
 // ---- Init ----
