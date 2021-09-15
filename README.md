@@ -79,6 +79,18 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the role_router is responsible for managing custom package roles
 * the user_router is responsible for managing package user
 
+### Auth Router Endpoints
+OPTIONS /auth
+POST /auth
+
+
+router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
+router.HandleFunc("/auth", authRouter.startSession).Methods("POST")
+router.HandleFunc("/auth", VerifyToken(authRouter.killSession, config, dbClient)).Methods("DELETE")
+router.HandleFunc("/auth", VerifyToken(authRouter.refreshSession, config, dbClient)).Methods("GET")
+router.HandleFunc("/auth", VerifyToken(authRouter.checkSession, config, dbClient)).Methods("HEAD")
+router.HandleFunc("/auth", VerifyToken(authRouter.changePassword, config, dbClient)).Methods("PUT")
+
 
 
 
