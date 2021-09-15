@@ -68,3 +68,25 @@ $ cp conf_example.json conf.json
 $ cd src/app
 $ cp conf_test_example.json conf_test.json
 ```
+
+## API Reference
+This package contains 5 separate routers: auth_router, permission_router, role_permission_router, role_router and a user_router
+
+### Router Responsibilities
+* the auth_router is responsible for session management such as sign-in and logout
+* the permission_router is responsible for permission management when new features are added
+* the role_permission_router is responsible for permission assignment to individual roles
+* the role_router is responsible for managing custom package roles
+* the user_router is responsible for managing package user
+
+
+
+
+
+
+
+
+
+
+
+
