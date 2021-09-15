@@ -105,11 +105,14 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 
 ### <ins>API List</ins>
 ```
+<ins>auth_router</ins>
 POST /auth                             -
 DELETE /auth                           -
 GET /auth                              -
 HEAD /auth                             -
 PUT /auth                              -
+
+<ins>users_router</ins>
 POST /users                            -
 GET /users                             -
 GET /users/{id}                        -
@@ -126,6 +129,12 @@ GET /roles                             -
 GET /roles/{id}                        -
 PATCH /roles/{id}                      -
 PUT /roles/{id}                        -
+POST /permissions                      -
+GET /permissions                       -
+GET /permissions/{id}                  -
+PATCH /permissions/{id}                -
+PUT /permissions/{id}                  -
+DELETE /permissions/{id}               -
 ```
 
 ### <ins>Auth Router Endpoints</ins>
@@ -614,10 +623,129 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+### <ins>Permission Router Endpoints</ins>
+#### 1. Create Permission
+* POST /permissions
 
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
 
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
 
+#### 2. Get Active Permissions
+* GET /permissions
 
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 3. Get permission specified by {id}
+* GET /permissions/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 4. Update permission specified by {id}
+* PATCH /permissions/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 5. Activate permissions specified by {id}
+* PUT /permissions/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 6. Deactivate permissions specified by {id}
+* DELETE /permissions/{id}
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+router.HandleFunc("/role/{id}/permissions", VerifyToken(rolePermissionRouter.setRolePermissions, config, dbClient)).Methods("POST")
+router.HandleFunc("/role/{id}/permissions", VerifyToken(rolePermissionRouter.findRolePermissions, config, dbClient)).Methods("GET")
 
 
 
