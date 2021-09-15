@@ -127,11 +127,101 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 Every API call in this package, minus this API, will require the Auth-Token as a header.  It will be referred as {Auth-Token} going forward.
 ```
 
-#### 2. DELETE /auth
-#### 3. GET /auth
-#### 4. HEAD /auth
-#### 5. PUT /auth
+#### 2. Session Logout
+* DELETE /auth
 
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 3. Refresh Session
+* GET /auth
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 4. Check Session
+* HEAD /auth
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+#### 5. Change User Password
+* PUT /auth
+
+##### Request
+* Headers
+```
+{
+	Content-Type: application/json
+	Auth-Token: {Auth-Token}
+}
+```
+
+* Body
+```
+{
+  "username": "root",
+  "password": "abc123xyz890",
+  "new_password": "xxkd938dkdjs"
+}
+```
+
+##### Response
+* Headers
+```
+{
+	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "username": "root"
+}
+```
 
 ### <ins>User Router Endpoints</ins>
 #### 1. POST /users
