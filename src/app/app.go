@@ -23,7 +23,7 @@ func (rcvr *App) Init(e string) error {
 		return err
 	}
 
-	// Step 2: Connect to the targetted Mongo Database
+	// Step 2: Connect to the targeted Mongo Database
 	dbClient, err := mongo.NewClient(options.Client().ApplyURI(config.MongoUri))
 	if err != nil {
 		return err
