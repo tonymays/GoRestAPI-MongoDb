@@ -104,27 +104,27 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the role_permission_router is responsible for permission assignment to individual roles
 
 ### <ins>API List</ins>
-* **POST /auth**
-* **DELETE /auth**
-* GET /auth
-* HEAD /auth
-* PUT /auth
-* POST /users
-* GET /users
-* GET /users/{id}
-* PATCH /users/{id}
-* PUT /users/{id}
-* DELETE /users/{id}
-* GET /users/{id}/roles
-* GET /users/{id}/service_catalog
-* PUT /users/{userId}/roles.{roleId}
-* PATCH /users/{userId}/roles.{roleId}
-* DELETE /users/{userId}/roles.{roleId}
-* POST /roles
-* GET /roles
-* GET /roles/{id}
-* PATCH /roles/{id}
-* PUT /roles/{id}
+* **POST /auth**                             -
+* **DELETE /auth**                           -
+* **GET /auth**                              -
+* **HEAD /auth**                             -
+* **PUT /auth**                              -
+* **POST /users**                            -
+* **GET /users**                             -
+* **GET /users/{id}**                        -
+* **PATCH /users/{id}**                      -
+* **PUT /users/{id}**                        -
+* **DELETE /users/{id}**                     -
+* **GET /users/{id}/roles**                  -
+* **GET /users/{id}/service_catalog**        -
+* **PUT /users/{userId}/roles.{roleId}**     -
+* **PATCH /users/{userId}/roles.{roleId}**   -
+* **DELETE /users/{userId}/roles.{roleId}**  -
+* **POST /roles**                            -
+* **GET /roles**                             -
+* **GET /roles/{id}**                        -
+* **PATCH /roles/{id}**                      -
+* **PUT /roles/{id}**                        -
 
 ### <ins>Auth Router Endpoints</ins>
 #### 1. Session Login
