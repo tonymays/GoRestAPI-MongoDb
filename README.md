@@ -78,6 +78,7 @@ $ go build ./src/app
 ```bash
 $ ./app
 ```
+
 * The first time you run the app the server will initialize itself by creating the root user, role, base permissions etc.
 ```bash
 initializing new server
