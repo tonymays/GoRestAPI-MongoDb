@@ -916,11 +916,29 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "tag": "Can add role"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "permission_id": "3b45b52a-a851-44dd-9280-945b6d662ea1",
+    "tag": "Can add role",
+    "active": "Yes",
+    "created": "2021-09-15 22:36:24.029710703 +0000 UTC",
+    "modified": "2021-09-15 22:36:24.029710703 +0000 UTC"
 }
 ```
 
@@ -944,6 +962,40 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    {
+        "permission_id": "3e855474-ed1f-469c-aa90-6f2ef698c297",
+        "tag": "Can Add User",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.684883466 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.684883466 +0000 UTC"
+    },
+    {
+        "permission_id": "6ab246ad-27da-45f9-a0c9-a8cb45638a13",
+        "tag": "Can Edit User",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.730064696 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.730064696 +0000 UTC"
+    },
+    {
+        "permission_id": "84a71558-559a-4a0a-859e-d700aa77802c",
+        "tag": "Can Delete User",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.748303213 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.748303213 +0000 UTC"
+    },
+    {
+        "permission_id": "3b45b52a-a851-44dd-9280-945b6d662ea1",
+        "tag": "Can add role",
+        "active": "Yes",
+        "created": "2021-09-15 22:36:24.029710703 +0000 UTC",
+        "modified": "2021-09-15 22:36:24.029710703 +0000 UTC"
+    }
+]
+```
+
 #### 3. Get permission specified by {id}
 * GET /permissions/{id}
 
@@ -964,6 +1016,17 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "permission_id": "3e855474-ed1f-469c-aa90-6f2ef698c297",
+    "tag": "Can Add User",
+    "active": "Yes",
+    "created": "2021-09-15 19:58:01.684883466 +0000 UTC",
+    "modified": "2021-09-15 19:58:01.684883466 +0000 UTC"
+}
+```
+
 #### 4. Update permission specified by {id}
 * PATCH /permissions/{id}
 
@@ -976,11 +1039,26 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "tag": "Can edit role"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "tag": "Can edit role",
+    "modified": "2021-09-15 22:39:23.197686851 +0000 UTC"
 }
 ```
 
@@ -1004,6 +1082,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "active": "Yes",
+    "modified": "2021-09-15 22:40:34.186234107 +0000 UTC"
+}
+```
+
 #### 6. Deactivate permissions specified by {id}
 * DELETE /permissions/{id}
 
@@ -1024,6 +1110,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "active": "Yes",
+    "modified": "2021-09-15 22:40:34.186234107 +0000 UTC"
+}
+```
+
 ### <ins>VII. Role Permissions Router Endpoints</ins>
 #### 1. Set Role Permissions for the role specified by {id}
 * POST /role/{id}/permissions
@@ -1037,12 +1131,28 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    "Can edit role",
+    "Can Edit User"
+]
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
 }
+```
+
+* Body
+```
+[
+    "Can edit role",
+    "Can Edit User"
+]
 ```
 
 #### 2. Get All Active Permissions for the role specified by {id}
@@ -1065,8 +1175,29 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    {
+        "role_permission_id": "df6c56b8-0356-4c91-9d31-d45b58c23e88",
+        "role_id": "8088d468-824b-425e-97d9-c65221164e62",
+        "permission_id": "3e855474-ed1f-469c-aa90-6f2ef698c297",
+        "tag": "Can edit role",
+        "created": "2021-09-15 22:42:49.845688152 +0000 UTC"
+    },
+    {
+        "role_permission_id": "548efed2-a876-4376-bd43-be424a3ad17d",
+        "role_id": "8088d468-824b-425e-97d9-c65221164e62",
+        "permission_id": "6ab246ad-27da-45f9-a0c9-a8cb45638a13",
+        "tag": "Can Edit User",
+        "created": "2021-09-15 22:42:49.855940659 +0000 UTC"
+    }
+]
+```
+
 ## API Go Tests
 
+Tests are currently under construction
 
 
 
