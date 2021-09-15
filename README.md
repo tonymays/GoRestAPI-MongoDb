@@ -311,11 +311,49 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "username": "root",
+    "password": "abc123xy890",
+    "first_name": "Anthony",
+    "last_name": "Mays",
+    "address": "3904 Long Meadow Court",
+    "city": "Plano",
+    "state": "TX",
+    "zip": "75074",
+    "country": "United States",
+    "email": "anthony.d.mays@gmail.com",
+    "phone": "4697926095"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "user_id": "5d40a6f2-de58-43c6-9992-7fba3198ba16",
+    "username": "root",
+    "password": "$2a$10$pjq.YwrZR9OMpPiMCNHJcujcW0vMopBsNeyJdemltCWJADIrSwfQ6",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "address": "123 ABC Ave",
+    "city": "Long Beach",
+    "state": "CA",
+    "zip": "12345",
+    "country": "United States",
+    "email": "jane.doe@yahoo.com",
+    "phone": "123456789",
+    "active": "Yes",
+    "created": "2021-09-15 21:18:14.868632889 +0000 UTC",
+    "modified": "2021-09-15 21:18:14.868632889 +0000 UTC"
 }
 ```
 
@@ -339,6 +377,46 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    {
+        "user_id": "00cd2469-d597-48ac-a864-14aa80009127",
+        "username": "root",
+        "password": "$2a$10$mvHYyXaszdA8oxMt1dkd1uVpzdAE4g4Lzlv3MwAxQvfXw3r7bhB0O",
+        "first_name": "John",
+        "last_name": "Doe",
+        "address": "123 ABC Ave",
+        "city": "Long Beach",
+        "state": "Ca",
+        "zip": "12345",
+        "country": "United States",
+        "email": "john.doe@yahoo.com",
+        "phone": "1234567890",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.597137168 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.597137168 +0000 UTC"
+    },
+	{
+        "user_id": "00cd2469-d597-48ac-a864-14aa80009127",
+        "username": "root",
+        "password": "$2a$10$mvHYyXaszdA8oxMt1dkd1uVpzdAE4g4Lzlv3MwAxQvfXw3r7bhB0O",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "address": "123 ABC Ave",
+        "city": "Long Beach",
+        "state": "Ca",
+        "zip": "12345",
+        "country": "United States",
+        "email": "jane.doe@yahoo.com",
+        "phone": "1234567890",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.597137168 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.597137168 +0000 UTC"
+    },
+]
+```
+
 #### 3. Get User specified by {id}
 * GET /users/{id}
 
@@ -359,6 +437,27 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+	"user_id": "00cd2469-d597-48ac-a864-14aa80009127",
+	"username": "root",
+	"password": "$2a$10$mvHYyXaszdA8oxMt1dkd1uVpzdAE4g4Lzlv3MwAxQvfXw3r7bhB0O",
+	"first_name": "John",
+	"last_name": "Doe",
+	"address": "123 ABC Ave",
+	"city": "Long Beach",
+	"state": "Ca",
+	"zip": "12345",
+	"country": "United States",
+	"email": "john.doe@yahoo.com",
+	"phone": "1234567890",
+	"active": "Yes",
+	"created": "2021-09-15 19:58:01.597137168 +0000 UTC",
+	"modified": "2021-09-15 19:58:01.597137168 +0000 UTC"
+},
+```
+
 #### 4. Update User
 * PATCH /users/{id}
 
@@ -371,11 +470,26 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+	"phone": "9087654321"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "phone": "9087654321",
+    "modified": "2021-09-15 21:21:56.331564725 +0000 UTC"
 }
 ```
 
@@ -399,6 +513,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "active": "Yes",
+    "modified": "2021-09-15 21:22:48.384153946 +0000 UTC"
+}
+```
+
 #### 6. Deactivate User
 * DELETE /users/{id}
 
@@ -416,6 +538,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+	"active": "No",
+	"modified": "2021-09-15 21:22:48.384153946 +0000 UTC"
 }
 ```
 
@@ -439,6 +569,22 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    {
+        "user_role_id": "b0792e8c-818f-438f-836c-631ae79d4d68",
+        "user_id": "00cd2469-d597-48ac-a864-14aa80009127",
+        "role_id": "c3f4fca4-6949-4a50-b610-6ddaa07be8f9",
+        "user_name": "root",
+        "role_name": "Admin",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.597137168 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.597137168 +0000 UTC"
+    }
+]
+```
+
 #### 8. Get User Service Catalog (Permissions)
 * GET /users/{id}/service_catalog
 
@@ -459,8 +605,17 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    "Can Add User",
+    "Can Edit User",
+    "Can Delete User"
+]
+```
+
 #### 9. Assign role specified by {roleId} to user specified by {userId}
-* PUT /users/{userId}/roles.{roleId}
+* PUT /users/{userId}/roles/{roleId}
 
 ##### Request
 * Headers
@@ -476,11 +631,23 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "user_role_id": "164ae760-def2-420d-8162-30a9f39292d5",
+    "user_id": "00cd2469-d597-48ac-a864-14aa80009127",
+    "role_id": "8088d468-824b-425e-97d9-c65221164e62",
+    "active": "Yes",
+    "created": "2021-09-15 21:26:37.71239779 +0000 UTC",
+    "modified": "2021-09-15 21:26:37.71239779 +0000 UTC"
 }
 ```
 
 #### 10. Activate role specified by {roleId} for user specified by {userId}
-* PATCH /users/{userId}/roles.{roleId}
+* PATCH /users/{userId}/roles/{roleId}
 
 ##### Request
 * Headers
@@ -496,11 +663,19 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "active": "Yes",
+    "modified": "2021-09-15 21:27:34.484471524 +0000 UTC"
 }
 ```
 
 #### 11. Deactivate role specified by {roleId} for user specified by {userId}
-* DELETE /users/{userId}/roles.{roleId}
+* DELETE /users/{userId}/roles/{roleId}
 
 ##### Request
 * Headers
@@ -516,6 +691,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "active": "No",
+    "modified": "2021-09-15 21:27:34.484471524 +0000 UTC"
 }
 ```
 
@@ -532,11 +715,29 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "name": "User"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "role_id": "8088d468-824b-425e-97d9-c65221164e62",
+    "name": "User",
+    "active": "Yes",
+    "created": "2021-09-15 21:26:00.64853357 +0000 UTC",
+    "modified": "2021-09-15 21:26:00.64853357 +0000 UTC"
 }
 ```
 
