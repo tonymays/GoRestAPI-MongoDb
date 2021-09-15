@@ -102,7 +102,6 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 	Status: 200 OK
 }
 ```
-Every API call in this package, minus this API, will require the Auth-Token as a header.  It will be referred to as {Auth-Token} going forward.
 
 * Body
 ```
@@ -117,6 +116,11 @@ Every API call in this package, minus this API, will require the Auth-Token as a
         "Can Delete User"
     ]
 }
+```
+
+* Call Notes
+```
+Every API call in this package, minus this API, will require the Auth-Token as a header.  It will be referred as {Auth-Token} going forward.
 ```
 
 #### 2. DELETE /auth
