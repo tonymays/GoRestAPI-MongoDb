@@ -73,6 +73,7 @@ $ cp conf_test_example.json conf_test.json
 This package contains 5 separate routers: auth_router, permission_router, role_permission_router, role_router and a user_router
 
 ### Router Responsibilities
+___
 * the auth_router is responsible for session management such as sign-in and logout
 * the permission_router is responsible for permission management when new features are added
 * the role_permission_router is responsible for permission assignment to individual roles
@@ -80,6 +81,7 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the user_router is responsible for managing package user
 
 ### Auth Router Endpoints
+___
 #### OPTIONS /auth
 #### POST /auth
 
