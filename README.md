@@ -80,8 +80,8 @@ This package contains 5 separate routers: auth_router, permission_router, role_p
 * the user_router is responsible for managing package user
 
 ### Auth Router Endpoints
-OPTIONS /auth
-POST /auth
+#### OPTIONS /auth
+#### POST /auth
 
 
 router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
