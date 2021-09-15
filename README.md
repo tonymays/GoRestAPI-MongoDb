@@ -761,6 +761,26 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+[
+    {
+        "role_id": "c3f4fca4-6949-4a50-b610-6ddaa07be8f9",
+        "name": "Admin",
+        "active": "Yes",
+        "created": "2021-09-15 19:58:01.64194887 +0000 UTC",
+        "modified": "2021-09-15 19:58:01.64194887 +0000 UTC"
+    },
+    {
+        "role_id": "8088d468-824b-425e-97d9-c65221164e62",
+        "name": "User",
+        "active": "Yes",
+        "created": "2021-09-15 21:26:00.64853357 +0000 UTC",
+        "modified": "2021-09-15 21:26:00.64853357 +0000 UTC"
+    }
+]
+```
+
 #### 3. Get role specified by {id}
 * GET /roles/{id}
 
@@ -781,6 +801,17 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+	"role_id": "c3f4fca4-6949-4a50-b610-6ddaa07be8f9",
+	"name": "Admin",
+	"active": "Yes",
+	"created": "2021-09-15 19:58:01.64194887 +0000 UTC",
+	"modified": "2021-09-15 19:58:01.64194887 +0000 UTC"
+}
+```
+
 #### 4. Update role specified by {id}
 * PATCH /roles/{id}
 
@@ -793,11 +824,26 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "name": "Users"
+}
+```
+
 ##### Response
 * Headers
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "name": "Users",
+    "modified": "2021-09-15 22:28:02.70611011 +0000 UTC"
 }
 ```
 
@@ -821,6 +867,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
+* Body
+```
+{
+    "active": "Yes",
+    "modified": "2021-09-15 22:28:52.130154913 +0000 UTC"
+}
+```
+
 #### 6. Deactivate role specified by {id}
 * DELETE /roles/{id}
 
@@ -838,6 +892,14 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ```
 {
 	Status: 200 OK
+}
+```
+
+* Body
+```
+{
+    "active": "No",
+    "modified": "2021-09-15 22:28:52.130154913 +0000 UTC"
 }
 ```
 
