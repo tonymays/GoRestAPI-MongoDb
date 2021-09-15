@@ -43,24 +43,24 @@ $ cp conf_example.json conf.json
 
 5. Open the conf.json file and set it configurable settings based upon the descriptions given below:
 ```
-* MongoUri         - Uri connection string to your MongoDB database
-* DbName           - the name of the MongoDB database
-* Secret           - the signing secret phrase for JWT Tokens
-* HTTPS            - [on|off] on if using HTTPS otherwise off
-* Cert             - the cert file name
-* Key              - the key file name
-* ServerListenPort - the port the server is listening on
-* RootUserName     - the name of the root user on new server initialization
-* RootPassword     - the password of the root user
-* Firstname        - the first name of the root user
-* Lastname         - the last name of the root user
-* Address          - the address of the root user
-* City             - the city of the root user
-* State            - the state of the root user
-* Zip              - the zip of the root user
-* Country          - the country of the root user
-* Email            - the root user's email address
-* Phone            - the root user's phone number
+MongoUri         - Uri connection string to your MongoDB database
+DbName           - the name of the MongoDB database
+Secret           - the signing secret phrase for JWT Tokens
+HTTPS            - [on|off] on if using HTTPS otherwise off
+Cert             - the cert file name
+Key              - the key file name
+ServerListenPort - the port the server is listening on
+RootUserName     - the name of the root user on new server initialization
+RootPassword     - the password of the root user
+Firstname        - the first name of the root user
+Lastname         - the last name of the root user
+Address          - the address of the root user
+City             - the city of the root user
+State            - the state of the root user
+Zip              - the zip of the root user
+Country          - the country of the root user
+Email            - the root user's email address
+Phone            - the root user's phone number
 ```
 
 6. Copy src/app/conf_test_example.json to src/app/conf_test.json and repeat step 5 in conf_test.json if you plan on using or expanding the built in go tests.
