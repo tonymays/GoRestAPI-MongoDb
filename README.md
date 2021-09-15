@@ -82,9 +82,12 @@ ___
 
 ### Auth Router Endpoints
 ___
-###### OPTIONS /auth
-###### POST /auth
-
+1. OPTIONS /auth
+2. POST /auth
+3. DELETE /auth
+4. GET /auth
+5. HEAD /auth
+6. PUT /auth
 
 router.HandleFunc("/auth", HandleOptionsRequest).Methods("OPTIONS")
 router.HandleFunc("/auth", authRouter.startSession).Methods("POST")
