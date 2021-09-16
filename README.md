@@ -173,7 +173,7 @@ GET /role/{id}/permissions   - get permissions for the role specified by {id}
 	"password": "abc123xyz890"
 }
 ```
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -214,7 +214,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -234,7 +234,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -254,7 +254,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -283,7 +283,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -328,7 +328,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -369,7 +369,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -429,7 +429,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -477,7 +477,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -505,7 +505,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -533,7 +533,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -561,7 +561,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -597,7 +597,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -626,7 +626,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -658,7 +658,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -686,7 +686,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -722,7 +722,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -753,7 +753,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -793,7 +793,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -831,7 +831,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -859,7 +859,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -887,7 +887,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -923,7 +923,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -954,7 +954,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1008,7 +1008,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1046,7 +1046,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1074,7 +1074,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1102,7 +1102,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1139,7 +1139,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 ]
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
@@ -1167,7 +1167,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 }
 ```
 
-##### Response
+##### &emsp;<ins>Response</ins>
 * Headers
 ```
 {
