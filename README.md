@@ -158,7 +158,7 @@ GET /role/{id}/permissions   - get permissions for the role specified by {id}
 #### 1. Session Login
 * POST /auth
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -205,7 +205,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 2. Session Logout
 * DELETE /auth
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -225,7 +225,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 3. Refresh Session
 * GET /auth
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -245,7 +245,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 4. Check Session
 * HEAD /auth
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -265,7 +265,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 5. Change User Password
 * PUT /auth
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -302,7 +302,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 1. Create User
 * POST /users
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -360,7 +360,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 2. Get All Active Users
 * GET /users
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -420,7 +420,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 3. Get User specified by {id}
 * GET /users/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -461,7 +461,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 4. Update User
 * PATCH /users/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -496,7 +496,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 5. Activate User
 * PUT /users/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -524,7 +524,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 6. Deactivate User
 * DELETE /users/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -552,7 +552,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 7. User roles for user specified by {id}
 * GET /users/{id}/roles
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -588,7 +588,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 8. Get User Service Catalog (Permissions)
 * GET /users/{id}/service_catalog
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -617,7 +617,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 9. Assign role specified by {roleId} to user specified by {userId}
 * PUT /users/{userId}/roles/{roleId}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -649,7 +649,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 10. Activate role specified by {roleId} for user specified by {userId}
 * PATCH /users/{userId}/roles/{roleId}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -677,7 +677,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 11. Deactivate role specified by {roleId} for user specified by {userId}
 * DELETE /users/{userId}/roles/{roleId}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -706,7 +706,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 1. Create Role
 * POST /roles
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -744,7 +744,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 2. Get Active Roles
 * GET /roles
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -784,7 +784,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 3. Get role specified by {id}
 * GET /roles/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -815,7 +815,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 4. Update role specified by {id}
 * PATCH /roles/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -850,7 +850,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 5. Activate role specified by {id}
 * PUT /roles/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -878,7 +878,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 6. Deactivate role specified by {id}
 * DELETE /roles/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -907,7 +907,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 1. Create Permission
 * POST /permissions
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -945,7 +945,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 2. Get Active Permissions
 * GET /permissions
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -999,7 +999,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 3. Get permission specified by {id}
 * GET /permissions/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -1030,7 +1030,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 4. Update permission specified by {id}
 * PATCH /permissions/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -1065,7 +1065,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 5. Activate permissions specified by {id}
 * PUT /permissions/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -1093,7 +1093,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 6. Deactivate permissions specified by {id}
 * DELETE /permissions/{id}
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -1122,7 +1122,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 1. Set Role Permissions for the role specified by {id}
 * POST /role/{id}/permissions
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
@@ -1158,7 +1158,7 @@ Every API call in this package, minus this API, will require the Auth-Token as a
 #### 2. Get All Active Permissions for the role specified by {id}
 * GET /role/{id}/permissions
 
-####       <ins>Request</ins>
+#### &emsp;<ins>Request</ins>
 * Headers
 ```
 {
