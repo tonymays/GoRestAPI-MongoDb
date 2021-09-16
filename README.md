@@ -185,7 +185,7 @@ GET /role/{id}/permissions   - get permissions for the role specified by {id}
 * Body
 ```
 {
-    "user_idid": "982b2a79-be2a-47e2-a572-1066eb5a99c8",
+    "user_id": "982b2a79-be2a-47e2-a572-1066eb5a99c8",
     "username": "root",
     "email": "YOUR USER Email Address",
     "remote_addr": "YOUR LOGIN IP",
