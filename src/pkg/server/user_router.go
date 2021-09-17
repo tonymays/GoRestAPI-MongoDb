@@ -72,7 +72,16 @@ func (rcvr *userRouter) createUser(w http.ResponseWriter, r *http.Request) {
 func (rcvr *userRouter) findActiveUsers(w http.ResponseWriter, r *http.Request) {
 	var u root.User
 	u.Active = "Yes"
-	users, err := rcvr.userService.FindUser(u)
+	us, err := rcvr.userService.FindUser(u)
+
+	var users []root.User
+	for _, elUser := range us {
+		var user root.User
+		user = elUser
+		user.Password = ""
+		users = append(users, user)
+	}
+
 	if err == nil {
 		w = SetResponseHeaders(w, "", "")
 		w.WriteHeader(http.StatusOK)
@@ -89,6 +98,7 @@ func (rcvr *userRouter) findUser(w http.ResponseWriter, r *http.Request) {
 	u.UserId = vars["id"]
 	users, err := rcvr.userService.FindUser(u)
 	if err == nil {
+		users[0].Password = ""
 		w = SetResponseHeaders(w, "", "")
 		w.WriteHeader(http.StatusOK)
 		json.NewEncoder(w).Encode(users[0])
